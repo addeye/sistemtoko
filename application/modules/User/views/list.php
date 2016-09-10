@@ -45,7 +45,7 @@
                                     <td><?=$row->username?></td>
                                     <td><?=$row->level->name?></td>
                                     <td>
-                                        <a class="btn btn-success btn-xs" href="<?=site_url('pengguna/edit/'.$row->id)?>">Edit</a>
+                                        <a class="btn btn-success btn-xs" href="<?=site_url('user/home/update/'.$row->id)?>">Edit</a>
                                         <a class="btn btn-danger btn-xs del" href="javascript:void(0);" id="<?=$row->id?>">Del</a>
                                     </td>
                                 </tr>
@@ -60,7 +60,7 @@
 </div><!-- /.content-wrapper -->
 
 <input type="hidden" id="iddel">
-<input type="hidden" id="url" value="<?=site_url('pengguna/delete/')?>">
+<input type="hidden" id="url" value="<?=site_url('user/home/delete/')?>">
 
 <!-- DATA TABES SCRIPT -->
 <script src="<?=base_url('assets/adminlte/plugins/datatables/jquery.dataTables.min.js')?>" type="text/javascript"></script>

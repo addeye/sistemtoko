@@ -33,7 +33,7 @@ class User_model extends Base_model
     {
         $condition['id']=$id;
         $user = $this->getData($this->table,$condition)->row();
-        $user[0]->level = $this->getData('m_level',array('id'=>$user->level))->row();
+        $user->m_level = $this->getData('m_level',array('id'=>$user->level))->row();
         if($user)
         {
             return $user;

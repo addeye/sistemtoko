@@ -33,18 +33,34 @@ class Base_model extends CI_Model
 
     function addData($table,$data)
     {
-        $this->db->insert($table, $data);
+        $query = $this->db->insert($table, $data);
+        if($query)
+        {
+            return TRUE;
+        }
+
+        return FALSE;
     }
 
     function updateData($table, $data, $condition)
     {
         $this->db->where($condition);
-        $this->db->update($table, $data);
+        $query = $this->db->update($table, $data);
+        if($query)
+        {
+            return TRUE;
+        }
+        return FALSE;
     }
 
     function deleteData($table, $condition)
     {
         $this->db->where($condition);
-        $this->db->delete($table);
+        $query = $this->db->delete($table);
+        if($query)
+        {
+            return TRUE;
+        }
+        return FALSE;
     }
 }

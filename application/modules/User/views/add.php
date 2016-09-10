@@ -22,7 +22,7 @@
                         <h3 class="box-title"><?=$sub_title?></h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
-                        <form class="form-horizontal" action="<?=site_url('pengguna/create')?>" method="post">
+                        <form class="form-horizontal" action="<?=site_url('user/home/do_add')?>" method="post">
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-4 control-label">Nama User</label>
                                 <div class="col-sm-2">
