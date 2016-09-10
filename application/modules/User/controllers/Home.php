@@ -88,6 +88,9 @@ class Home extends My_controller
         if($result)
         {
             $this->alert->show(2);
+            //contoh panggil helper log
+            helper_log("add", "menambahkan data");
+            //silahkan di ganti2 aja kalimatnya
             redirect('user/home');
         }
 

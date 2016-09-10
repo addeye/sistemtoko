@@ -29,15 +29,15 @@ if(!function_exists('helper_log'))
         }
 
         // paramter
-        $param['log_user']      = $CI->session->userdata('username');
+        $param['log_user']      = $CI->session->userdata('name');
         $param['log_tipe']      = $log_tipe;
         $param['log_desc']      = $str;
 
         //load model log
-        $CI->load->model('m_log');
+        $CI->load->model('log_model');
 
         //save to database
-        $CI->m_log->save_log($param);
+        $CI->log_model->save($param);
 
     }
 }
