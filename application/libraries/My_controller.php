@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Created by PhpStorm.
+ * User: deyelovi
+ * Date: 01/09/2016
+ * Time: 4:03
+ */
+class My_controller extends CI_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function is_logged_in()
+    {
+        $user = $this->session->userdata('user_id');
+        return isset($user);
+    }
+}
