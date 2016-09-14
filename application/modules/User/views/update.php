@@ -21,7 +21,6 @@
                     <div class="box-header">
                         <h3 class="box-title"><?=$sub_title?></h3>
                     </div><!-- /.box-header -->
-                    <?=var_dump($user)?>
                     <div class="box-body">
                         <form class="form-horizontal" action="<?=site_url('user/home/do_update')?>" method="post">
                             <input type="hidden" name="id" value="<?=$user->id?>">

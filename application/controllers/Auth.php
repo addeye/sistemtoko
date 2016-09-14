@@ -38,6 +38,8 @@ class Auth extends CI_Controller
 
             $this->auth_model->time_log($row->id);
 
+            helper_log("login", "melakukan login");
+
             redirect('/');
         }
         else
@@ -49,6 +51,7 @@ class Auth extends CI_Controller
 
     public function logout()
     {
+        helper_log("logout", "melakukan logout");
         $this->session->sess_destroy();
         redirect('auth/login');
     }

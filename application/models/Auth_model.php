@@ -13,6 +13,7 @@ class Auth_model extends Base_model
         $tabel = 'm_user';
         $condition['username'] = $username;
         $condition['password'] = md5($password);
+        $condition['active'] = 1;
 
         $result = $this->getData($tabel,$condition);
         if($result)

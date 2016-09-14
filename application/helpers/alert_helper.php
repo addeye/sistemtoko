@@ -11,16 +11,20 @@ if(! function_exists('alert'))
 {
     function alert($success=1)
     {
+        $CI = & get_instance();
         switch($success)
         {
             case 0:
-                $this->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-danger\" id=\"alert\">Gagal Disimpan</div></div>");
+                $CI->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-danger\" id=\"alert\">Gagal Disimpan</div></div>");
                 break;
             case 1:
-                $this->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-success\" id=\"alert\">Data berhasil disimpan</div></div>");
+                $CI->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-success\" id=\"alert\">Data berhasil disimpan</div></div>");
                 break;
             case 2:
-                $this->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-success\" id=\"alert\">Data berhasil diupdate</div></div>");
+                $CI->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-success\" id=\"alert\">Data berhasil diupdate</div></div>");
+                break;
+            case 3:
+                $CI->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-success\" id=\"alert\">Data berhasil dihapus</div></div>");
                 break;
         }
     }

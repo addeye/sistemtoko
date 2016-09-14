@@ -48,7 +48,10 @@ class Home extends My_controller
         $result = $this->user_model->create($data);
         if($result)
         {
-            $this->alert->show();
+            //contoh panggil helper log
+            helper_log("add", "tambah data user");
+            //silahkan di ganti2 aja kalimatnya
+            alert();
             redirect('user/home');
         }
     }
@@ -87,9 +90,9 @@ class Home extends My_controller
         $result = $this->user_model->update($id,$data);
         if($result)
         {
-            $this->alert->show(2);
+            alert(2);
             //contoh panggil helper log
-            helper_log("add", "menambahkan data");
+            helper_log("edit", "update data user");
             //silahkan di ganti2 aja kalimatnya
             redirect('user/home');
         }
@@ -101,7 +104,32 @@ class Home extends My_controller
         $result = $this->user_model->delete($id);
         if($result)
         {
-            $this->alert->show(2);
+            //contoh panggil helper log
+            helper_log("delete", "menghapus data user");
+            //silahkan di ganti2 aja kalimatnya
+            alert(3);
+        }
+    }
+
+    public function password()
+    {
+        $data['title'] = 'Password';
+        $data['sub_title'] = 'Update Password';
+        $content = "password";
+        $this->template->output($data,$content);
+    }
+
+    public function do_pass()
+    {
+        $password = md5($this->input->post('password'));
+        $id = $this->session->userdata('user_id');
+        $data['password'] = $password;
+        $result = $this->user_model->update($id,$data);
+        if($result)
+        {
+            alert(2);
+            helper_log('edit','Melakukan ganti password');
+            redirect('user/home/password');
         }
     }
 

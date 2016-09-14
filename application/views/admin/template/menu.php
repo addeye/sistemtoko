@@ -17,7 +17,7 @@
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
             <li class="active">
-                <a href="<?=site_url('/front')?>">
+                <a href="<?=site_url('/')?>">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span></i>
                 </a>
             </li>
@@ -34,10 +34,10 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="<?=site_url('content/page')?>"><i class="fa fa-circle-o"></i> Barang</a></li>
-                    <li><a href="<?=site_url('content/page')?>"><i class="fa fa-circle-o"></i> Departemen</a></li>
-                    <li><a href="<?=site_url('content/page')?>"><i class="fa fa-circle-o"></i> Supplier</a></li>
-                    <li><a href="<?=site_url('content/page')?>"><i class="fa fa-circle-o"></i> Member</a></li>
-                    <li><a href="<?=site_url('content/page')?>"><i class="fa fa-circle-o"></i> Bank</a></li>
+                    <li><a href="<?=site_url('departement/depart')?>"><i class="fa fa-circle-o"></i> Departemen</a></li>
+                    <li><a href="<?=site_url('supplier/supp')?>"><i class="fa fa-circle-o"></i> Supplier</a></li>
+                    <li><a href="<?=site_url('member/mem')?>"><i class="fa fa-circle-o"></i> Member</a></li>
+                    <li><a href="<?=site_url('bank/ban')?>"><i class="fa fa-circle-o"></i> Bank</a></li>
                 </ul>
             </li>
             <li class="treeview">

@@ -34,6 +34,7 @@
                                 <th>Name</th>
                                 <th>Username</th>
                                 <th>Level</th>
+                                <th>Active</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -44,6 +45,7 @@
                                     <td><?=$row->name?></td>
                                     <td><?=$row->username?></td>
                                     <td><?=$row->level->name?></td>
+                                    <td><?=$row->active?></td>
                                     <td>
                                         <a class="btn btn-success btn-xs" href="<?=site_url('user/home/update/'.$row->id)?>">Edit</a>
                                         <a class="btn btn-danger btn-xs del" href="javascript:void(0);" id="<?=$row->id?>">Del</a>

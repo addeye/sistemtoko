@@ -63,4 +63,21 @@ class Base_model extends CI_Model
         }
         return FALSE;
     }
+
+    public function getkodeunik($table,$kode='TR') {
+        $q = $this->db->query("SELECT MAX(RIGHT(id,4)) AS idmax FROM ".$table);
+        if($q->num_rows()>0){ //jika data ada
+            foreach($q->result() as $k){
+                $kd = ((int)$k->idmax)+1; //string kode diset ke integer dan ditambahkan 1 dari kode terakhir
+//                $kd = sprintf("%04s", $tmp); //kode ambil 4 karakter terakhir
+            }
+        }else{ //jika data kosong diset ke kode awal
+            $kd = "1";
+        }
+        //mulai bikin kode
+        $bikin_kode = str_pad($kd, 5, "0", STR_PAD_LEFT);
+        $kode_jadi = "$kode$bikin_kode";
+
+        return $kode_jadi;
+    }
 }

@@ -43,7 +43,7 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="<?=site_url('front/password')?>" class="btn btn-default btn-flat">Ganti Password</a>
+                                <a href="<?=site_url('user/home/password')?>" class="btn btn-default btn-flat">Ganti Password</a>
                             </div>
                             <div class="pull-right">
                                 <a href="<?=site_url('auth/logout')?>" class="btn btn-default btn-flat">Keluar</a>

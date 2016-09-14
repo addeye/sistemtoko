@@ -31,5 +31,21 @@ class Welcome extends My_controller {
 	public function index()
 	{
 		$this->template->output(NULL,'admin/home');
+		//$this->load->view('view_barcode');
 	}
+
+	function bikin_barcode($kode)
+	{
+//kita load library nya ini membaca file Zend.php yang berisi loader
+//untuk file yang ada pada folder Zend
+		$this->load->library('zend');
+
+//load yang ada di folder Zend
+		$this->zend->load('Zend/Barcode');
+
+//generate barcodenya
+//$kode = 12345abc;
+		Zend_Barcode::render('code128', 'image', array('text'=>$kode), array());
+	}
+//end of class
 }
