@@ -22,10 +22,6 @@ class Welcome extends My_controller {
 	public function __construct()
 	{
 		parent::__construct();
-		if(!$this->is_logged_in())
-		{
-			redirect('auth/login');
-		}
 	}
 
 	public function index()

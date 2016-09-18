@@ -8,7 +8,7 @@
  */
 class Sub_model extends Base_model
 {
-    protected $sub_departement = 'm_subdepartement';
+    protected $sub_departement = 'm_subdepart';
 
     public function __construct()
     {

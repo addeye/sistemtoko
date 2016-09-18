@@ -45,6 +45,11 @@
     </script>
     <!-- Bootstrap 3.3.2 JS -->
     <script src="<?=base_url('assets/adminlte/bootstrap/js/bootstrap.min.js')?>" type="text/javascript"></script>
+
+    <!-- ... -->
+    <script type="text/javascript" src="<?=base_url('bower_components/moment/min/moment.min.js')?>"></script>
+    <script type="text/javascript" src="<?=base_url('bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')?>"></script>
+    <link rel="stylesheet" href="<?=base_url('bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')?>" />
 </head>
 <body class="skin-blue sidebar-mini">
 <div class="wrapper">

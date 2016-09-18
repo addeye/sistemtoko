@@ -33,7 +33,8 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?=site_url('content/page')?>"><i class="fa fa-circle-o"></i> Barang</a></li>
+                    <li><a href="<?=site_url('barang/brg')?>"><i class="fa fa-circle-o"></i> Barang</a></li>
+                    <li><a href="<?=site_url('barang/brg/satuan')?>"><i class="fa fa-circle-o"></i> Satuan</a></li>
                     <li><a href="<?=site_url('departement/depart')?>"><i class="fa fa-circle-o"></i> Departemen</a></li>
                     <li><a href="<?=site_url('supplier/supp')?>"><i class="fa fa-circle-o"></i> Supplier</a></li>
                     <li><a href="<?=site_url('member/mem')?>"><i class="fa fa-circle-o"></i> Member</a></li>
@@ -48,7 +49,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="<?=site_url('content/page')?>"><i class="fa fa-circle-o"></i> Belum Terkirim</a></li>
-                    <li><a href="<?=site_url('content/page')?>"><i class="fa fa-circle-o"></i> Transaksi PO</a></li>
+                    <li><a href="<?=site_url('purchase/po')?>"><i class="fa fa-circle-o"></i> Transaksi PO</a></li>
                 </ul>
             </li>
             <li class="treeview">

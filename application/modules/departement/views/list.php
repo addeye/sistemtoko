@@ -32,7 +32,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Name</th>
-                                <th>Sub Depatement</th>
+                                <th>Sub Departement</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
