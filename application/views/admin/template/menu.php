@@ -48,7 +48,7 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?=site_url('content/page')?>"><i class="fa fa-circle-o"></i> Belum Terkirim</a></li>
+                    <li><a href="<?=site_url('purchase/po/notsent')?>"><i class="fa fa-circle-o"></i> Status PO</a></li>
                     <li><a href="<?=site_url('purchase/po')?>"><i class="fa fa-circle-o"></i> Transaksi PO</a></li>
                 </ul>
             </li>
@@ -59,7 +59,7 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?=site_url('content/page')?>"><i class="fa fa-circle-o"></i> Pembelian Barang</a></li>
+                    <li><a href="<?=site_url('buying/buy/')?>"><i class="fa fa-circle-o"></i> Pembelian Barang</a></li>
                     <li><a href="<?=site_url('content/page')?>"><i class="fa fa-circle-o"></i> Return Pembelian</a></li>
                     <li><a href="<?=site_url('content/page')?>"><i class="fa fa-circle-o"></i> Pelunasan Hutang</a></li>
                 </ul>

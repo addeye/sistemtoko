@@ -7,7 +7,7 @@
             <th>Qty</th>
             <th>Satuan</th>
             <th>Total</th>
-            <th>Action</th>
+            <th style="width: 40px;">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -19,7 +19,7 @@
                 <td><?=$row->piece?></td>
                 <td><?=$row->piece*$row->qty?></td>
                 <td>
-                    <button id="<?=$row->id?>" class="btn btn-danger btn-hapus">Delete</button>
+                    <button id="<?=$row->id?>" class="btn btn-danger btn-xs btn-hapus"><i class="glyphicon glyphicon-trash"></i></button>
                 </td>
             </tr>
         <?php } ?>

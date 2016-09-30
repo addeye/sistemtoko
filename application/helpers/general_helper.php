@@ -25,4 +25,31 @@ if(!function_exists('term'))
     }
 }
 
+if(!function_exists('valterm'))
+{
+    function valterm($id)
+    {
+        return array_search($id,term());
+    }
+}
+
+if(!function_exists('diskon'))
+{
+    function diskon($persen,$total)
+    {
+        if($persen!=0)
+        {
+            $ppersen = $persen/100;
+            $pure = $total*$ppersen;
+            return $pure;
+        }
+        else
+        {
+            return 0;
+        }
+
+    }
+
+}
+
 

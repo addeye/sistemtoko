@@ -6,9 +6,10 @@
  * Date: 12/09/2016
  * Time: 23:05
  */
-class Purchase_model extends Base_model
+class Buying_model extends Base_model
 {
-    protected $table = 'trans_po';
+    protected $table = 'trans_buy';
+    protected $table_detail = 'detail_buy';
 
     public function __construct()
     {
@@ -34,7 +35,8 @@ class Purchase_model extends Base_model
         $condition['id']=$id;
         $pagedata = $this->getData($this->table,$condition)->row();
         $pagedata->supp = $this->getData('m_supplier',array('id'=>$pagedata->supplier))->row();
-        $pagedata->detail = $this->getByPo($pagedata->id);
+        $pagedata->detail = $this->getByBuy($pagedata->id);
+        $pagedata->po = $this->getSupplierByPO($pagedata->po);
 
         if($pagedata)
         {
@@ -77,7 +79,7 @@ class Purchase_model extends Base_model
 
     public function getkode()
     {
-        $kode = $this->getkodeunik($this->table,'PO',7);
+        $kode = $this->getkodeunik($this->table,'TB',8);
         return $kode;
     }
 
@@ -132,9 +134,9 @@ class Purchase_model extends Base_model
         return [];
     }
 
-    public function getAllDPo()
+    public function getAllDetail()
     {
-        $pagedata = $this->get('detail_po')->result();
+        $pagedata = $this->get($this->table_detail)->result();
         if($pagedata)
         {
             return $pagedata;
@@ -142,10 +144,10 @@ class Purchase_model extends Base_model
         return [];
     }
 
-    public function getIdDPo($id)
+    public function getIdDetail($id)
     {
         $condition['id']=$id;
-        $pagedata = $this->getData('detail_po',$condition)->row();
+        $pagedata = $this->getData($this->table_detail,$condition)->row();
         if($pagedata)
         {
             return $pagedata;
@@ -153,9 +155,9 @@ class Purchase_model extends Base_model
         return [];
     }
 
-    public function createDPo($data=array())
+    public function createDetail($data=array())
     {
-        $query = $this->addData('detail_po',$data);
+        $query = $this->addData($this->table_detail,$data);
         if($query)
         {
             return TRUE;
@@ -163,10 +165,10 @@ class Purchase_model extends Base_model
         return FALSE;
     }
 
-    public function updateDPo($id,$data=array())
+    public function updateDetail($id,$data=array())
     {
         $condition['id'] = $id;
-        $query = $this->updateData('detail_po',$data,$condition);
+        $query = $this->updateData($this->table_detail,$data,$condition);
         if($query)
         {
             return TRUE;
@@ -174,10 +176,10 @@ class Purchase_model extends Base_model
         return FALSE;
     }
 
-    public function deleteDPo($id)
+    public function deleteDetail($id)
     {
         $condition['id']=$id;
-        $query = $this->deleteData('detail_po',$condition);
+        $query = $this->deleteData($this->table_detail,$condition);
         if($query)
         {
             return TRUE;
@@ -185,10 +187,10 @@ class Purchase_model extends Base_model
         return FALSE;
     }
 
-    public function getByPo($id_po)
+    public function getByBuy($id_buy)
     {
-        $condition['po']=$id_po;
-        $pagedata = $this->getData('detail_po',$condition)->result();
+        $condition['buy']=$id_buy;
+        $pagedata = $this->getData($this->table_detail,$condition)->result();
 
         foreach($pagedata as $key=>$row)
         {
@@ -201,14 +203,47 @@ class Purchase_model extends Base_model
         return [];
     }
 
-    public function getStatusSent()
+    public function getNotSent()
     {
         $pagedata = $this->get($this->table,'DESC','date')->result();
         foreach($pagedata as $key=>$row)
         {
             $pagedata[$key]->sup = $this->model->getIdSupplier($row->supplier);
-            $pagedata[$key]->send = count($this->getData('detail_po',array('po'=>$row->id,'come'=>1))->result());
-            $pagedata[$key]->total = count($this->getData('detail_po',array('po'=>$row->id))->result());
+        }
+        if($pagedata)
+        {
+            return $pagedata;
+        }
+        return [];
+    }
+
+    public function getPrice($id)
+    {
+        $result = $this->getData('m_barang',array('id'=>$id))->row();
+        if($result)
+        {
+            return $result->buy_price;
+        }
+
+        return 0;
+    }
+
+    public function getListPO()
+    {
+        $pagedata = $this->get('trans_po')->result();
+        if($pagedata)
+        {
+            return $pagedata;
+        }
+        return [];
+    }
+
+    public function getSupplierByPO($id)
+    {
+        $pagedata = $this->getData('trans_po',array('id'=>$id))->result();
+        foreach($pagedata as $key=>$row)
+        {
+            $pagedata[$key]->poitem = $this->getData('detail_po',array('po'=>$row->id))->result();
         }
         if($pagedata)
         {

@@ -49,7 +49,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Faktur</label>
                                     <div class="col-sm-9">
-                                        <p class="form-control-static"><?=$data->number?></p>
+                                        <p class="form-control-static"><?=$data->number?> / <?=$data->po[0]->number?></p>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -58,7 +58,18 @@
                                         <p class="form-control-static"><?=$data->supp->name?></p>
                                     </div>
                                 </div>
-
+                                <div class="form-group">
+                                    <label for="inputPassword" class="col-sm-3 control-label">Disc</label>
+                                    <div class="col-sm-9">
+                                        <p class="form-control-static"><?=$data->disc?> %</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword" class="col-sm-3 control-label">PPN</label>
+                                    <div class="col-sm-9">
+                                        <p class="form-control-static"><?=$data->ppn?></p>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label for="inputPassword" class="col-sm-3 control-label">Keterangan</label>
                                     <div class="col-sm-9">
@@ -75,12 +86,24 @@
                                         <p class="form-control-static"><?=human_date($data->date)?></p>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="inputPassword" class="col-sm-3 control-label">Term</label>
+                                    <div class="col-sm-9">
+                                        <p class="form-control-static"><?=term()[$data->term]?></p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Jatuh Tempo</label>
+                                    <div class="col-sm-9">
+                                        <p class="form-control-static"><?=human_date($data->due_date)?></p>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-md-10 col-lg-offset-1">
+                        <div class="col-md-12 text-center">
                             <form class="form-inline">
                                 <div class="form-group">
                                     <select id="valbarang" class="form-control select2">
@@ -91,22 +114,25 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" id="valqty" class="form-control" name="qty" placeholder="jumlah">
+                                    <input type="number" style="width: 85px;" id="valqty" class="form-control" name="qty" placeholder="jumlah">
                                 </div>
                                 <div class="form-group">
                                     <select class="form-control" name="unit" id="valunit">
-                                        <option value="">Pilih Unit</option>
                                         <?php foreach($unit as $u){?>
                                             <option value="<?=$u->name?>"><?=$u->name?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" id="valpiece" class="form-control" name="piece" placeholder="Satuan">
+                                    <input type="number" style="width: 85px;" id="valpiece" class="form-control" value="1" name="piece" placeholder="Per">
                                 </div>
-                                <input type="hidden" name="po" id="valpo" value="<?=$data->id?>">
+                                <div class="form-group">
+                                    <input type="number" id="valprice" class="form-control" name="price" placeholder="Harga Satuan">
+                                </div>
+                                <input type="hidden" name="buy" id="valbuy" value="<?=$data->id?>">
                                 <button type="button" class="btn btn-success btn-simpan"><i class="glyphicon glyphicon-plus"></i></button>
-                                <a href="<?=site_url('purchase/po')?>" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-backward"></i></a>
+                                <a href="<?=site_url('buying/buy')?>" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-backward"></i></a>
+                                <button type="button" id="transfer" class="btn btn-info"><i class="glyphicon glyphicon-transfer"></i></button>
                             </form>
                         </div>
                     </div>
@@ -120,9 +146,11 @@
     </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
 
-<input type="hidden" id="url" value="<?=site_url('purchase/po/listCart/'.$data->id)?>">
-<input type="hidden" id="urlSimpan" value="<?=site_url('purchase/po/addCart')?>">
-<input type="hidden" id="urlcetak" value="<?=site_url('purchase/po/print_po/'.$data->id)?>" >
+<input type="hidden" id="url" value="<?=site_url('buying/buy/listCart/'.$data->id)?>">
+<input type="hidden" id="urlSimpan" value="<?=site_url('buying/buy/addCart')?>">
+<input type="hidden" id="urlcetak" value="<?=site_url('buying/buy/print_po/'.$data->id)?>" >
+<input type="hidden" id="urlharga" value="<?=site_url('buying/buy/getprice_item/')?>" >
+<input type="hidden" id="urlTransfer" value="<?=site_url('buying/buy/transiteItem/'.$data->po[0]->id.'/'.$data->id)?>">
 
 <div class="modal fade" id="loading" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -142,17 +170,47 @@
         barang = $('#valbarang').val();
         qty = $('#valqty').val();
         unit = $('#valunit').val();
-        po = $('#valpo').val();
+        buy = $('#valbuy').val();
         piece = $('#valpiece').val();
+        price = $('#valprice').val();
 
         $.ajax({
             url: url_simpan,
             type : 'post',
-            data : {po:po,item:barang,qty:qty,unit:unit,piece:piece},
+            data : {buy:buy,item:barang,qty:qty,unit:unit,piece:piece,price:price},
             cache: false,
         })
             .done(function( ) {
                 kolom();
+            });
+    });
+
+    $('#valbarang').change(function(){
+        var site_urlharga = $('#urlharga').val();
+        $.ajax({
+            beforeSend:function(){
+                $("#loading").modal('show');
+            },
+            url: site_urlharga+this.value,
+            type : 'get',
+            cache: false,
+        })
+            .done(function( data ) {
+                $("#loading").modal('hide');
+                $('#valprice').val(data);
+            });
+    });
+
+    $('#transfer').click(function(){
+        var site_urltransfer = $('#urlTransfer').val();
+        $.ajax({
+            url: site_urltransfer,
+            type : 'get',
+            cache: false,
+        })
+            .done(function( data ) {
+                kolom();
+                $('#transfer').addClass('disabled');
             });
     });
 

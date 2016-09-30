@@ -17,7 +17,7 @@
     <!-- Font Awesome Icons -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
-    <link href="<?=base_url('assets/adminlte/dist/css/AdminLTE.min.css')?>" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url('assets/adminlte/dist/css/AdminLTE.css')?>" rel="stylesheet" type="text/css" />
     <!-- iCheck -->
     <link href="<?=base_url('assets/adminlte/plugins/iCheck/square/blue.css')?>" rel="stylesheet" type="text/css" />
 

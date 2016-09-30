@@ -45,7 +45,7 @@
                                     <td><?=$row->number?></td>
                                     <td><?=tgl_indo($row->date)?></td>
                                     <td><?=$row->sup->name?></td>
-                                    <td><a class="btn btn-success btn-xs" href="<?=site_url('purchase/po/cart/'.$row->id)?>">Open</a></td>
+                                    <td><a class="btn btn-success btn-xs" href="<?=$link_open.$row->id?>">Open</a></td>
                                     <td>
                                         <a class="btn btn-success btn-xs" href="<?=$link_edit.$row->id?>">Edit</a>
                                         <a class="btn btn-danger btn-xs del" href="javascript:void(0);" id="<?=$row->id?>">Del</a>

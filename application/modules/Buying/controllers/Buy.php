@@ -6,24 +6,25 @@
  * Date: 12/09/2016
  * Time: 23:09
  */
-class Po extends My_controller
+class Buy extends My_controller
 {
-    protected $linkback = 'purchase/po';
+    protected $linkback = 'buying/buy';
 
     public function __construct()
     {
         parent::__construct();
-        $this->load->model(array('purchase_model'=>'model'));
+        $this->load->model(array('buying_model'=>'model'));
     }
 
     public function index()
     {
         $data = array(
-            'title' => 'Purchase Order',
-            'sub_title' => 'Tabel Purchase Order',
-            'link_add' => site_url('purchase/po/add'),
-            'link_edit' => site_url('purchase/po/update/'),
-            'link_delete' => site_url('purchase/po/delete'),
+            'title' => 'Pembelian Barang',
+            'sub_title' => 'Tabel Pembelian',
+            'link_add' => site_url('buying/buy/add'),
+            'link_edit' => site_url('buying/buy/update/'),
+            'link_delete' => site_url('buying/buy/delete'),
+            'link_open' => site_url('buying/buy/cart/'),
             'data' => $this->model->getAll()
         );
 
@@ -34,12 +35,13 @@ class Po extends My_controller
     public function add()
     {
         $data = array(
-            'title' => 'Purchase Order',
-            'sub_title' => 'Tambah Purchase Order',
-            'link_back' => site_url('purchase/po/'),
-            'action_link' => site_url('purchase/po/do_add'),
+            'title' => 'Pembelian Order',
+            'sub_title' => 'Tambah Pembelian',
+            'link_back' => site_url('buying/buy/'),
+            'action_link' => site_url('buying/buy/do_add'),
             'kode' => $this->model->getkode(),
-            'supplier' => $this->model->getSupplier()
+            'supplier' => $this->model->getSupplier(),
+            'listpo'=>$this->model->getListPO()
         );
 
         $content = "add";
@@ -49,6 +51,7 @@ class Po extends My_controller
     public function do_add()
     {
         $number = $this->input->post('number');
+        $po = $this->input->post('po');
         $supplier = $this->input->post('supplier');
         $disc = $this->input->post('disc');
         $ppn = $this->input->post('ppn');
@@ -60,6 +63,7 @@ class Po extends My_controller
 
         $data = array(
             'number'=>$number,
+            'po'=>$po,
             'supplier'=>$supplier,
             'disc'=>$disc,
             'ppn'=>$ppn,
@@ -81,10 +85,10 @@ class Po extends My_controller
     public function update($id)
     {
         $data = array(
-            'title' => 'Purchase Order',
-            'sub_title' => 'Update Purchase Order',
-            'link_back' => site_url('purchase/po'),
-            'action_link' => site_url('purchase/po/do_update'),
+            'title' => 'Pembelian Barang',
+            'sub_title' => 'Update Pembelian',
+            'link_back' => site_url('buying/buy'),
+            'action_link' => site_url('buying/buy/do_update'),
             'po' => $this->model->getId($id),
             'supplier' => $this->model->getSupplier()
         );
@@ -142,11 +146,11 @@ class Po extends My_controller
     public function cart($id)
     {
         $data = array(
-            'title' => 'Purchase Order',
-            'sub_title' => 'Item Purchase Order',
-            'link_add' => site_url('purchase/po/add'),
-            'link_edit' => site_url('purchase/po/update/'),
-            'link_delete' => site_url('purchase/po/delete'),
+            'title' => 'Pembelian Barang',
+            'sub_title' => 'Detail Pembelian',
+            'link_add' => site_url('buying/buy/add'),
+            'link_edit' => site_url('buying/buy/update/'),
+            'link_delete' => site_url('buying/buy/delete'),
             'data' => $this->model->getId($id),
             'barang' => $this->model->getBarang(),
             'unit' => $this->model->getUnit(),
@@ -160,35 +164,41 @@ class Po extends My_controller
 
     public function addCart()
     {
-        $po = $this->input->post('po');
+        $buy = $this->input->post('buy');
         $item = $this->input->post('item');
         $qty = $this->input->post('qty');
         $unit = $this->input->post('unit');
         $piece = $this->input->post('piece');
+        $price = $this->input->post('price');
+        $total = $qty*$piece*$price;
 
         $data = array(
-            'po'=>$po,
+            'buy'=>$buy,
             'item'=>$item,
             'qty'=>$qty,
             'unit'=>$unit,
             'piece'=>$piece,
+            'price'=>$price,
+            'total'=>$total,
         );
 
-        $this->model->createDPo($data);
+        $this->model->createDetail($data);
     }
 
     public function deleteCart($id)
     {
-        $this->model->deleteDPo($id);
+        $this->model->deleteDetail($id);
     }
 
     public function listCart($id)
     {
-        $data['DPo'] = $this->model->getByPo($id);
+        $data['DPo'] = $this->model->getByBuy($id);
         foreach($data['DPo'] as $key=>$d)
         {
             $data['DPo'][$key]->barang = $this->model->getBarangById($d->item);
         }
+        $data['buy'] = $this->model->getId($id);
+        $data['unit'] = $this->model->getUnit();
 //        return var_dump($data);
         $this->load->view('cart',$data);
     }
@@ -206,14 +216,17 @@ class Po extends My_controller
         $data = array(
             'title' => 'Status Purchase Order',
             'sub_title' => 'Daftar Status PO',
-            'data' => $this->model->getStatusSent()
+            'link_accepted' => site_url('purchase/po/accepted/'),
+            'link_disaccepted' => site_url('purchase/po/disaccepted/'),
+            'data' => $this->model->getNotSent()
         );
         foreach($data['data'] as $key=>$row)
         {
             $data['data'][$key]->sup = $this->model->getIdSupplier($row->supplier);
+            $data['data'][$key]->status = $row->accepted?'Terkirim':'Belum';
+            $data['data'][$key]->disable = $row->accepted?'disabled':'';
+            $data['data'][$key]->btn = $row->accepted?'btn-info':'btn-warning';
         }
-
-//        return var_dump($data);
 
         $content = "notsent";
         $this->template->output($data,$content);
@@ -238,38 +251,55 @@ class Po extends My_controller
         $this->template->output($data,$content);
     }
 
-
-    public function ceklist($id)
+    public function accepted($id)
     {
-        $data['DPo'] = $this->model->getByPo($id);
-        foreach($data['DPo'] as $key=>$d)
+        $data['accepted'] ='1';
+        $result = $this->model->update($id,$data);
+        if($result)
         {
-            $data['DPo'][$key]->barang = $this->model->getBarangById($d->item);
+            redirect('purchase/po/notsent');
         }
-        $data['id']=$id;
-//        return var_dump($data);
-        $this->load->view('ceklist',$data);
     }
 
-    public function ceklist_act()
+    public function disaccepted($id)
     {
-        $come = $this->input->post('come');
-        $ids = $this->input->post('id');
-
-//        return var_dump($ids);
-        foreach($ids as $val)
+        $data['accepted'] ='0';
+        $result = $this->model->update($id,$data);
+        if($result)
         {
-            if(in_array($val,$come))
-            {
-                $this->model->updateDPo($val,array('come'=>'1'));
-//                echo $come[$val];
-            }
-            else
-            {
-                $this->model->updateDPo($val,array('come'=>'0'));
-            }
-//            echo $val;
+            redirect('purchase/po/notsent');
         }
+    }
 
+    public function getprice_item($id)
+    {
+        $result = $this->model->getPrice($id);
+        echo $result;
+    }
+
+    public function getSupplierByPO($id)
+    {
+        $result = $this->model->getSupplierByPO($id);
+        echo $result[0]->supplier;
+
+    }
+
+    public function transiteItem($id,$idbuy)
+    {
+        $result = $this->model->getSupplierByPO($id);
+
+        foreach($result[0]->poitem as $row)
+        {
+            $data = array(
+                'buy'=>$idbuy,
+                'item'=>$row->item,
+                'qty'=>1,
+                'piece'=>1,
+                'price'=>1000,
+                'total'=>1*1000
+            );
+
+            $this->model->createDetail($data);
+        }
     }
 }

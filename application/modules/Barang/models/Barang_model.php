@@ -70,7 +70,7 @@ class Barang_model extends Base_model
 
     public function getkode()
     {
-        $kode = $this->getkodeunik($this->table,'B',5);
+        $kode = $this->getkodeunik($this->table,'B',7);
         return $kode;
     }
 

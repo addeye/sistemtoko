@@ -40,7 +40,8 @@
                     <div class="box-header">
                         <h3 class="box-title"><?=$sub_title?></h3>
                         <div class="pull-right">
-                            <button class="btn btn-info" onclick="loadOtherPage()"><i class="glyphicon glyphicon-print"></i> Cetak</button>
+                            <button class="btn btn-info" onclick="loadOtherPage()">Cetak</button>
+                            <a href="<?=site_url('purchase/po/notsent')?>" type="button" class="btn btn-warning">Kembali</a>
                         </div>
                     </div><!-- /.box-header -->
                     <div class="row">
@@ -58,7 +59,18 @@
                                         <p class="form-control-static"><?=$data->supp->name?></p>
                                     </div>
                                 </div>
-
+                                <div class="form-group">
+                                    <label for="inputPassword" class="col-sm-3 control-label">Disc</label>
+                                    <div class="col-sm-9">
+                                        <p class="form-control-static"><?=$data->disc?></p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword" class="col-sm-3 control-label">PPN</label>
+                                    <div class="col-sm-9">
+                                        <p class="form-control-static"><?=$data->ppn?></p>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label for="inputPassword" class="col-sm-3 control-label">Keterangan</label>
                                     <div class="col-sm-9">
@@ -75,44 +87,51 @@
                                         <p class="form-control-static"><?=human_date($data->date)?></p>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="inputPassword" class="col-sm-3 control-label">Term</label>
+                                    <div class="col-sm-9">
+                                        <p class="form-control-static"><?=term()[$data->term]?></p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Jatuh Tempo</label>
+                                    <div class="col-sm-9">
+                                        <p class="form-control-static"><?=human_date($data->due_date)?></p>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-md-10 col-lg-offset-1">
-                            <form class="form-inline">
-                                <div class="form-group">
-                                    <select id="valbarang" class="form-control select2">
-                                        <option value="">Pilih Barang</option>
-                                        <?php foreach($barang as $brg){ ?>
-                                            <option value="<?=$brg->id?>"><?=$brg->name?></option>
+                        <div class="col-md-12">
+                            <div class="box-body">
+                                <div class="table-responsive">
+                                    <table id="example1" class="table table-bordered table-hover">
+                                        <thead>
+                                        <tr>
+                                            <td>Kode</td>
+                                            <td>Nama Barang</td>
+                                            <td>Qty</td>
+                                            <td>Satuan</td>
+                                            <td>Total</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php foreach($data->detail as $row){?>
+                                            <tr>
+                                                <td><?=$row->items->code?></td>
+                                                <td><?=$row->items->name?></td>
+                                                <td><?=$row->qty?> <?=$row->unit?></td>
+                                                <td><?=$row->piece?></td>
+                                                <td><?=$row->piece*$row->qty?></td>
+                                            </tr>
                                         <?php } ?>
-                                    </select>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="form-group">
-                                    <input type="number" id="valqty" class="form-control" name="qty" placeholder="jumlah">
-                                </div>
-                                <div class="form-group">
-                                    <select class="form-control" name="unit" id="valunit">
-                                        <option value="">Pilih Unit</option>
-                                        <?php foreach($unit as $u){?>
-                                            <option value="<?=$u->name?>"><?=$u->name?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <input type="number" id="valpiece" class="form-control" name="piece" placeholder="Satuan">
-                                </div>
-                                <input type="hidden" name="po" id="valpo" value="<?=$data->id?>">
-                                <button type="button" class="btn btn-success btn-simpan"><i class="glyphicon glyphicon-plus"></i></button>
-                                <a href="<?=site_url('purchase/po')?>" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-backward"></i></a>
-                            </form>
+                            </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div id="view_cart">
-
                     </div>
                 </div><!-- /.box -->
             </div><!-- /.col -->
@@ -136,43 +155,6 @@
 
 
 <script>
-    kolom();
-    $('.btn-simpan').click(function(){
-        url_simpan = $('#urlSimpan').val();
-        barang = $('#valbarang').val();
-        qty = $('#valqty').val();
-        unit = $('#valunit').val();
-        po = $('#valpo').val();
-        piece = $('#valpiece').val();
-
-        $.ajax({
-            url: url_simpan,
-            type : 'post',
-            data : {po:po,item:barang,qty:qty,unit:unit,piece:piece},
-            cache: false,
-        })
-            .done(function( ) {
-                kolom();
-            });
-    });
-
-    function kolom()
-    {
-        site_url = $('#url').val();
-        $.ajax({
-            beforeSend:function(){
-                $("#loading").modal('show');
-            },
-            url: site_url,
-            type : 'get',
-            cache: false,
-        })
-            .done(function( data ) {
-                $("#loading").modal('hide');
-                $("#view_cart").html(data);
-            });
-    }
-
     function loadOtherPage() {
         var urlcetak = $("#urlcetak").val();
         $("<iframe>")                             // create a new iframe element

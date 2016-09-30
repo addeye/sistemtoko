@@ -16,6 +16,8 @@
     });
 
 </script>
+
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -44,14 +46,22 @@
                         <div class="form-horizontal">
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-3 control-label">Faktur</label>
-                                <div class="col-sm-6">
+                                <div class="col-sm-3">
                                     <input type="text" class="form-control" name="number" value="<?=$kode?>">
+                                </div>
+                                <div class="col-sm-4">
+                                    <select name="po" id="nomor_po" class="form-control select2" required>
+                                        <option value="">Nomor PO</option>
+                                        <?php foreach($listpo as $po) {?>
+                                            <option value="<?=$po->id?>"><?=$po->number?></option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-3 control-label">Supplier</label>
                                 <div class="col-sm-6">
-                                    <select name="supplier" class="form-control select2" required>
+                                    <select name="supplier" id="supplier" class="form-control select2" required>
                                         <option value="">Pilih Supplier</option>
                                         <?php foreach($supplier as $sup) {?>
                                             <option value="<?=$sup->id?>"><?=$sup->name?></option>
@@ -59,18 +69,18 @@
                                     </select>
                                 </div>
                             </div>
-                            <!-- <div class="form-group">
+                            <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-3 control-label">DISC</label>
                                 <div class="col-sm-2">
                                     <input type="number" class="form-control" name="disc">
-                                </div>
+                                </div> <p style="font-size: 22px;">%</p>
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-3 control-label">PPN</label>
                                 <div class="col-sm-2">
                                     <input type="number" class="form-control" name="ppn">
                                 </div>
-                            </div> -->
+                            </div>
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-3 control-label">Catatan</label>
                                 <div class="col-sm-6">
@@ -101,7 +111,7 @@
                                     <input type="text" class="form-control datetimepicker2" name="date">
                                 </div>
                             </div>
-                            <!-- <div class="form-group">
+                            <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-3 control-label">Term</label>
                                 <div class="col-sm-6">
                                     <select name="term" class="form-control select2" required>
@@ -117,7 +127,7 @@
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control datetimepicker2" name="due_date">
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
@@ -126,3 +136,38 @@
         </div><!-- /.row -->
     </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
+<input type="hidden" id="url" value="<?=site_url('buying/buy/getSupplierByPO')?>">
+<div class="modal fade" id="loading" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>Loading ....</p>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+    $('#nomor_po').change(function(){
+        var id = this.value;
+        site_url = $('#url').val();
+        $.ajax({
+            beforeSend:function(){
+                $("#loading").modal('show');
+            },
+            url: site_url+'/'+id,
+            type : 'get',
+            cache: false,
+        })
+            .done(function( data ) {
+                $("#loading").modal('hide');
+                console.log(data);
+                $("#supplier").val(data);
+                $('.select2').select2({
+                    theme: "bootstrap"
+                });
+
+            });
+    });
+</script>
+

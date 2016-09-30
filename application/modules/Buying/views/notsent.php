@@ -24,7 +24,6 @@
                 <div class="box">
                     <div class="box-header">
                         <h3 class="box-title"><?=$sub_title?></h3>
-                        <div class="pull-right"><a href="<?=$link_add?>" class="btn btn-primary">Tambah</a></div>
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <table id="example1" class="table table-bordered table-hover">
@@ -34,21 +33,29 @@
                                 <th>Faktur</th>
                                 <th>Tanggal</th>
                                 <th>Supplier</th>
-                                <th>Invoice</th>
-                                <th>Action</th>
+                                <th>Status</th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php $no=1; foreach($data as $row) {?>
                                 <tr>
                                     <td><?=$no++?></td>
-                                    <td><?=$row->number?></td>
+                                    <td><a href="<?=site_url('purchase/po/detail/'.$row->id)?>"><?=$row->number?></a></td>
                                     <td><?=tgl_indo($row->date)?></td>
                                     <td><?=$row->sup->name?></td>
-                                    <td><a class="btn btn-success btn-xs" href="<?=site_url('purchase/po/cart/'.$row->id)?>">Open</a></td>
                                     <td>
-                                        <a class="btn btn-success btn-xs" href="<?=$link_edit.$row->id?>">Edit</a>
-                                        <a class="btn btn-danger btn-xs del" href="javascript:void(0);" id="<?=$row->id?>">Del</a>
+                                        <!-- Split button -->
+                                        <div class="btn-group">
+                                            <button type="button" class="btn <?=$row->btn?>"><?=$row->status?></button>
+                                            <button type="button" class="btn <?=$row->btn?> dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="caret"></span>
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="<?=$link_accepted?><?=$row->id?>"> <i class="glyphicon glyphicon-send"></i> Terkirim</a></li>
+                                                <li><a href="<?=$link_disaccepted?><?=$row->id?>"> <i class="glyphicon glyphicon-remove"></i> Belum</a></li>
+                                            </ul>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php } ?>

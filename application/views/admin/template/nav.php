@@ -1,6 +1,6 @@
 <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="<?=site_url('/')?>" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>T</b>R</span>
         <!-- logo for regular state and mobile devices -->
@@ -25,7 +25,7 @@
                         <li class="user-header">
                             <img src="<?=base_url('assets/adminlte/dist/img/user2-160x160.jpg')?>" class="img-circle" alt="User Image" />
                             <p>
-                                Admin - Catering
+                                Admin - Toko
                             </p>
                         </li>
                         <!-- Menu Body

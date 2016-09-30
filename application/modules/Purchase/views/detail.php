@@ -40,7 +40,8 @@
                     <div class="box-header">
                         <h3 class="box-title"><?=$sub_title?></h3>
                         <div class="pull-right">
-                            <button class="btn btn-info" onclick="loadOtherPage()"><i class="glyphicon glyphicon-print"></i> Cetak</button>
+                            <button class="btn btn-info" onclick="loadOtherPage()">Cetak</button>
+                            <a href="<?=site_url('purchase/po/notsent')?>" type="button" class="btn btn-warning">Kembali</a>
                         </div>
                     </div><!-- /.box-header -->
                     <div class="row">
@@ -80,39 +81,11 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-md-10 col-lg-offset-1">
-                            <form class="form-inline">
-                                <div class="form-group">
-                                    <select id="valbarang" class="form-control select2">
-                                        <option value="">Pilih Barang</option>
-                                        <?php foreach($barang as $brg){ ?>
-                                            <option value="<?=$brg->id?>"><?=$brg->name?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <input type="number" id="valqty" class="form-control" name="qty" placeholder="jumlah">
-                                </div>
-                                <div class="form-group">
-                                    <select class="form-control" name="unit" id="valunit">
-                                        <option value="">Pilih Unit</option>
-                                        <?php foreach($unit as $u){?>
-                                            <option value="<?=$u->name?>"><?=$u->name?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <input type="number" id="valpiece" class="form-control" name="piece" placeholder="Satuan">
-                                </div>
-                                <input type="hidden" name="po" id="valpo" value="<?=$data->id?>">
-                                <button type="button" class="btn btn-success btn-simpan"><i class="glyphicon glyphicon-plus"></i></button>
-                                <a href="<?=site_url('purchase/po')?>" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-backward"></i></a>
-                            </form>
-                        </div>
-                    </div>
-                    <hr>
-                    <div id="view_cart">
+                        <div class="col-md-12">
+                            <div id="view_cart">
 
+                            </div>
+                        </div>
                     </div>
                 </div><!-- /.box -->
             </div><!-- /.col -->
@@ -120,7 +93,7 @@
     </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
 
-<input type="hidden" id="url" value="<?=site_url('purchase/po/listCart/'.$data->id)?>">
+<input type="hidden" id="url" value="<?=site_url('purchase/po/ceklist/'.$data->id)?>">
 <input type="hidden" id="urlSimpan" value="<?=site_url('purchase/po/addCart')?>">
 <input type="hidden" id="urlcetak" value="<?=site_url('purchase/po/print_po/'.$data->id)?>" >
 
@@ -134,27 +107,17 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-
 <script>
     kolom();
-    $('.btn-simpan').click(function(){
-        url_simpan = $('#urlSimpan').val();
-        barang = $('#valbarang').val();
-        qty = $('#valqty').val();
-        unit = $('#valunit').val();
-        po = $('#valpo').val();
-        piece = $('#valpiece').val();
+    function loadOtherPage() {
+        var urlcetak = $("#urlcetak").val();
+        $("<iframe>")                             // create a new iframe element
+            .hide()                               // make it invisible
+            .attr("src", urlcetak) // point the iframe to the page you want to print
+            .appendTo("body");                    // add iframe to the DOM to cause it to load the page
 
-        $.ajax({
-            url: url_simpan,
-            type : 'post',
-            data : {po:po,item:barang,qty:qty,unit:unit,piece:piece},
-            cache: false,
-        })
-            .done(function( ) {
-                kolom();
-            });
-    });
+    }
+
 
     function kolom()
     {
@@ -173,12 +136,5 @@
             });
     }
 
-    function loadOtherPage() {
-        var urlcetak = $("#urlcetak").val();
-        $("<iframe>")                             // create a new iframe element
-            .hide()                               // make it invisible
-            .attr("src", urlcetak) // point the iframe to the page you want to print
-            .appendTo("body");                    // add iframe to the DOM to cause it to load the page
 
-    }
 </script>
