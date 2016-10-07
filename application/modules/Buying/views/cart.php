@@ -22,6 +22,7 @@
         {
         foreach($DPo as $row){?>
             <input type="hidden" name="iddetail[]" value="<?=$row->id?>">
+            <input type="hidden" name="iditem[]" value="<?=$row->item?>">
             <tr>
                 <td><?=$row->barang->code?></td>
                 <td><?=$row->barang->name?></td>
@@ -42,7 +43,7 @@
                     <?=rupiah($row->price)?></td>
                 <td class="text-right"><?=rupiah($tot[] = $row->total)?></td>
                 <td>
-                    <button id="<?=$row->id?>" class="btn btn-danger btn-xs btn-hapus"><i class="glyphicon glyphicon-trash"></i></button>
+                    <button type="button" id="<?=$row->id?>" class="btn btn-danger btn-xs btn-hapus"><i class="glyphicon glyphicon-trash"></i></button>
                 </td>
             </tr>
         <?php } ?>

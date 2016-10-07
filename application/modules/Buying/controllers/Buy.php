@@ -317,6 +317,7 @@ class Buy extends My_controller
     public function multipleInsertCart()
     {
         $id = $this->input->post('iddetail');
+        $iditem = $this->input->post('iditem');
         $qty = $this->input->post('qty');
         $unit = $this->input->post('unit');
         $piece = $this->input->post('piece');
@@ -331,6 +332,20 @@ class Buy extends My_controller
                 'price'=>$price[$i],
                 'total'=>$price[$i]*($piece[$i]*$qty[$i])
             );
+
+            $old = $this->model->getIdDetail($id[$i]);
+            $qtydata = $old->qty;
+
+            if($qty[$i]>$qtydata)
+            {
+                $stock = $qty[$i]-$qtydata;
+                savebarang($iditem[$i],array('stock'=>$stock));
+            }
+            elseif($qty[$i]<$qtydata)
+            {
+                $stock = $qtydata-$qty[$i];
+                savebarang($iditem[$i],array('stock'=>$stock),0);
+            }
 
             $this->model->updateDetail($id[$i],$data);
 
