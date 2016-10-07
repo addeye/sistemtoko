@@ -38,7 +38,7 @@
                     <input style="width: 50px;" type="number" name="piece[]" value="<?=$row->piece?>">
                 </td>
                 <td class="text-right">
-                    <input style="width: 80px;" type="number" name="price[]" value="<?=$row->price?>">
+                    <input style="width: 80px; float: left;" type="number" name="price[]" value="<?=$row->price?>">
                     <?=rupiah($row->price)?></td>
                 <td class="text-right"><?=rupiah($tot[] = $row->total)?></td>
                 <td>

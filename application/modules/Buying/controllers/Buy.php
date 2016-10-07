@@ -182,11 +182,21 @@ class Buy extends My_controller
             'total'=>$total,
         );
 
+        //update stock
+        savebarang($item,array('stock'=>$qty));
+
         $this->model->createDetail($data);
     }
 
     public function deleteCart($id)
     {
+        $row = $this->model->getIdDetail($id);
+        $data['stock'] = $row->qty;
+        $item = $row->item;
+
+        //update stock
+        savebarang($item,$data,0);
+
         $this->model->deleteDetail($id);
     }
 
@@ -281,7 +291,6 @@ class Buy extends My_controller
     {
         $result = $this->model->getSupplierByPO($id);
         echo $result[0]->supplier;
-
     }
 
     public function transiteItem($id,$idbuy)
@@ -298,6 +307,8 @@ class Buy extends My_controller
                 'price'=>1000,
                 'total'=>1*1000
             );
+
+            savebarang($row->item,array('stock'=>1));
 
             $this->model->createDetail($data);
         }
