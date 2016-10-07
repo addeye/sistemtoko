@@ -302,4 +302,27 @@ class Buy extends My_controller
             $this->model->createDetail($data);
         }
     }
+
+    public function multipleInsertCart()
+    {
+        $id = $this->input->post('iddetail');
+        $qty = $this->input->post('qty');
+        $unit = $this->input->post('unit');
+        $piece = $this->input->post('piece');
+        $price = $this->input->post('price');
+
+        for($i=0; $i<count($id); $i++)
+        {
+            $data = array(
+                'qty'=>$qty[$i],
+                'unit'=>$unit[$i],
+                'piece'=>$piece[$i],
+                'price'=>$price[$i],
+                'total'=>$price[$i]*($piece[$i]*$qty[$i])
+            );
+
+            $this->model->updateDetail($id[$i],$data);
+
+        }
+    }
 }

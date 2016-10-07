@@ -1,4 +1,5 @@
 <div class="box-body">
+    <form id="formcart">
     <table id="" class="table table-bordered table-hover">
         <thead>
         <tr>
@@ -20,6 +21,7 @@
         else
         {
         foreach($DPo as $row){?>
+            <input type="hidden" name="iddetail[]" value="<?=$row->id?>">
             <tr>
                 <td><?=$row->barang->code?></td>
                 <td><?=$row->barang->name?></td>
@@ -28,7 +30,7 @@
                     <select name="unit[]" style="height: 27px;">
                         <option value="">Unit</option>
                         <?php foreach($unit as $u){ ?>
-                            <option value="<?=$u->name?>"><?=$u->name?></option>
+                            <option value="<?=$u->name?>" <?=$row->unit==$u->name?'selected':''?> ><?=$u->name?></option>
                         <?php } ?>
                     </select>
                 </td>
@@ -67,8 +69,12 @@
         <?php } ?>
         </tbody>
     </table>
+    <hr>
+    <button type="button" class="btn btn-success simpancart">Simpan</button>
+    </form>
 </div><!-- /.box-body -->
 <input type="hidden" id="urlHapus" value="<?=site_url('buying/buy/deleteCart/')?>">
+<input type="hidden" id="urlMultipleCart" value="<?=site_url('buying/buy/multipleInsertCart')?>">
 
 <script>
             $('.btn-hapus').click(function(){
@@ -86,4 +92,20 @@
                     kolom();
                 });
         });
+            $('.simpancart').click(function(){
+                var data = $('#formcart').serialize();
+                var urlMultiple = $('#urlMultipleCart').val();
+
+                $.ajax({
+                    url: urlMultiple,
+                    type : 'post',
+                    data : data,
+                    cache: false,
+                })
+
+                    .done(function(data) {
+//                        console.log(data);
+                        kolom();
+                    });
+            });
 </script>
