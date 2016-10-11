@@ -14,7 +14,7 @@ class Brg extends My_controller
         $this->load->model(array('barang_model'=>'model'));
     }
 
-    public function index($id=null)
+    public function index()
     {
         $data = array(
             'title' => 'Barang',
@@ -26,6 +26,7 @@ class Brg extends My_controller
 
         $jml = $this->model->getAll();
 
+
         //pengaturan pagination
         $config['base_url'] = base_url().'barang/brg/index/';
         $config['total_rows'] = count($jml);
@@ -33,33 +34,44 @@ class Brg extends My_controller
 
         // $config['base_url'] = '';
         $config['per_page'] = 10;
-        $config['uri_segment'] = 3;
-        $config['num_links'] = 9;
-        $config['page_query_string'] = TRUE;
-        $config['use_page_numbers'] = TRUE;
+//        $choice = $config["total_rows"] / $config["per_page"];
+//        $config["num_links"] = floor($choice);
 
-        $choice = $config["total_rows"] / $config["per_page"];
-        $config["num_links"] = floor($choice);
-
-        $config['query_string_segment'] = 'page';
+//        $config['query_string_segment'] = 'page';
         /* This Application Must Be Used With BootStrap 3 *  */
-        $config['full_tag_open'] = "<ul class='pagination'>";
-        $config['full_tag_close'] ="</ul>";
+//        $config['query_string_segment'] = 'start';
+
+        $config['full_tag_open'] = '<nav arial-label="Page navigation"><ul class="pagination" style="margin-top:0px">';
+        $config['full_tag_close'] = '</ul></nav>';
+
+        $config['first_link'] = 'First';
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
+
+        $config['last_link'] = 'Last';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+
+        $config['next_link'] = 'Next';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+
+        $config['prev_link'] = 'Prev';
+        $config['prev_tag_open'] = '<li>';
+        $config['prev_tag_close'] = '</li>';
+
+        $config['cur_tag_open'] = '<li class="active"><a>';
+        $config['cur_tag_close'] = '</a></li>';
+
         $config['num_tag_open'] = '<li>';
         $config['num_tag_close'] = '</li>';
-        $config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
-        $config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
-        $config['next_tag_open'] = "<li>";
-        $config['next_tagl_close'] = "</li>";
-        $config['prev_tag_open'] = "<li>";
-        $config['prev_tagl_close'] = "</li>";
-        $config['first_tag_open'] = "<li>";
-        $config['first_tagl_close'] = "</li>";
-        $config['last_tag_open'] = "<li>";
-        $config['last_tagl_close'] = "</li>";
-// $config['display_pages'] = FALSE;
+
+//        $config['display_pages'] = FALSE;
 //
         $config['anchor_class'] = 'follow_link';
+        $from = $this->uri->segment(4);
+
+//        return var_dump($from);
 
 
         //inisialisasi config
@@ -69,7 +81,7 @@ class Brg extends My_controller
         $data['halaman'] = $this->pagination->create_links();
 
         //tamplikan data
-        $data['barang'] = $this->model->getPaggingData($config['per_page'],$id);
+        $data['barang'] = $this->model->getPaggingData($config['per_page'],$from);
 
         foreach($data['barang'] as $key=>$row)
         {

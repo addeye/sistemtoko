@@ -1,6 +1,3 @@
-<!-- DATA TABLES -->
-<link href="<?=base_url('assets/adminlte/plugins/datatables/dataTables.bootstrap.css')?>" rel="stylesheet" type="text/css" />
-
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -41,7 +38,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <?php $no=1; foreach($barang as $row) {?>
+                            <?php $no = $this->uri->segment('4') + 1; foreach($barang as $row) {?>
                                 <tr>
                                     <td><?=$no++?></td>
                                     <td><?=$row->code?></td>
@@ -58,9 +55,10 @@
                             </tbody>
                         </table>
                             <div class="row">
-                                <div class="col-md-12 text-center">
+                                <div class="col-md-12 text-right">
                                     <?php echo $halaman; ?>
                                 </div>
+
                             </div>
                         </div>
                     </div><!-- /.box-body -->
@@ -73,22 +71,9 @@
 <input type="hidden" id="iddel">
 <input type="hidden" id="url" value="<?=$link_delete?>">
 
-<!-- DATA TABES SCRIPT -->
-<script src="<?=base_url('assets/adminlte/plugins/datatables/jquery.dataTables.min.js')?>" type="text/javascript"></script>
-<script src="<?=base_url('assets/adminlte/plugins/datatables/dataTables.bootstrap.min.js')?>" type="text/javascript"></script>
-
 <!-- page script -->
 <script type="text/javascript">
     $(function () {
-        $("#example1").dataTable();
-        $('#example2').dataTable({
-            "bPaginate": true,
-            "bLengthChange": false,
-            "bFilter": false,
-            "bSort": true,
-            "bInfo": true,
-            "bAutoWidth": false
-        });
         $('.del').click(function(){
             $('#mymodal').modal('show');
             $('#iddel').val(this.id);
