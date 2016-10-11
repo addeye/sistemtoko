@@ -28,7 +28,7 @@
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <div class="table-responsive">
-                        <table id="example1" class="table table-bordered table-hover">
+                        <table id="" class="table table-bordered table-hover">
                             <thead>
                             <tr>
                                 <th>No</th>
@@ -57,6 +57,11 @@
                             <?php } ?>
                             </tbody>
                         </table>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <?php echo $halaman; ?>
+                                </div>
+                            </div>
                         </div>
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->

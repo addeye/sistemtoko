@@ -36,6 +36,16 @@ class Barang_model extends Base_model
         return [];
     }
 
+    public function getPaggingData($num,$offset)
+    {
+        $pagedata = $this->pagingData($this->table,$num,$offset)->result();
+        if($pagedata)
+        {
+            return $pagedata;
+        }
+        return [];
+    }
+
     public function create($data=array())
     {
         $query = $this->addData($this->table,$data);
@@ -105,6 +115,7 @@ class Barang_model extends Base_model
         }
         return [];
     }
+
 
     public function createSatuan($data=array())
     {

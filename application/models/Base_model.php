@@ -64,6 +64,15 @@ class Base_model extends CI_Model
         return FALSE;
     }
 
+    function pagingData($table,$num,$offset)
+    {
+        $this->db->select('*');
+        $this->db->from($table);
+        $this->db->limit($num, $offset);
+        $this->db->order_by($table.'.id', 'DESC');
+        return $this->db->get();
+    }
+
     public function getkodeunik($table,$kode='TR',$total=5) {
         $q = $this->db->query("SELECT MAX(id) AS idmax FROM ".$table);
         if($q->num_rows()>0){ //jika data ada
