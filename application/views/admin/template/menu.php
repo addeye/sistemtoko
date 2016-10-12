@@ -61,7 +61,7 @@
                 <ul class="treeview-menu">
                     <li><a href="<?=site_url('buying/buy/')?>"><i class="fa fa-circle-o"></i> Pembelian Barang</a></li>
                     <li><a href="<?=site_url('buying/repay')?>"><i class="fa fa-circle-o"></i> Return Pembelian</a></li>
-                    <li><a href="<?=site_url('content/page')?>"><i class="fa fa-circle-o"></i> Pelunasan Hutang</a></li>
+                    <li><a href="<?=site_url('buying/debt')?>"><i class="fa fa-circle-o"></i> Pelunasan Hutang</a></li>
                 </ul>
             </li>
             <li class="treeview">
