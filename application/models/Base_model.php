@@ -64,11 +64,23 @@ class Base_model extends CI_Model
         return FALSE;
     }
 
-    function pagingData($table,$num,$offset)
+    function pagingData($table,$num,$offset,$text)
     {
         $this->db->select('*');
         $this->db->from($table);
         $this->db->limit($num, $offset);
+        if($text!=NULL) {
+            $this->db->like($table . '.name', $text);
+        }
+        $this->db->order_by($table.'.id', 'DESC');
+        return $this->db->get();
+    }
+
+    function likeData($table,$text)
+    {
+        $this->db->select('*');
+        $this->db->from($table);
+        $this->db->like($table . '.name', $text);
         $this->db->order_by($table.'.id', 'DESC');
         return $this->db->get();
     }

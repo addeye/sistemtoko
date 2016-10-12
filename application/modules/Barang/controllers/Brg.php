@@ -20,26 +20,32 @@ class Brg extends My_controller
             'title' => 'Barang',
             'sub_title' => 'Tabel Barang',
             'link_add' => site_url('barang/brg/add'),
-            'link_edit' => site_url('barang/brg/update/'),
             'link_delete' => site_url('barang/brg/delete'),
+            'link_table' => site_url('barang/brg/table'),
         );
 
-        $jml = $this->model->getAll();
+        $content = "list";
+        $this->template->output($data,$content);
+    }
 
+    public function table()
+    {
+        $data=array('link_edit' => site_url('barang/brg/update/'));
 
+        $text=$this->input->post('text');
+
+//        var_dump($text);
+        $jml = $this->model->getLikeData($text);
+
+//        var_dump(count($jml));
+//        var_dump($text);
         //pengaturan pagination
-        $config['base_url'] = base_url().'barang/brg/index/';
+        $config['base_url'] = base_url().'barang/brg/table/';
         $config['total_rows'] = count($jml);
 
 
         // $config['base_url'] = '';
         $config['per_page'] = 10;
-//        $choice = $config["total_rows"] / $config["per_page"];
-//        $config["num_links"] = floor($choice);
-
-//        $config['query_string_segment'] = 'page';
-        /* This Application Must Be Used With BootStrap 3 *  */
-//        $config['query_string_segment'] = 'start';
 
         $config['full_tag_open'] = '<nav arial-label="Page navigation"><ul class="pagination" style="margin-top:0px">';
         $config['full_tag_close'] = '</ul></nav>';
@@ -69,8 +75,8 @@ class Brg extends My_controller
 //        $config['display_pages'] = FALSE;
 //
         $config['anchor_class'] = 'follow_link';
-        $from = $this->uri->segment(4);
-
+        $config['attributes'] = array('onclick' => 'javascript:ajax_paging(this.href);return false;');
+        $from = ($this->uri->segment(4)) ? $this->uri->segment(4) : null;
 //        return var_dump($from);
 
 
@@ -81,16 +87,16 @@ class Brg extends My_controller
         $data['halaman'] = $this->pagination->create_links();
 
         //tamplikan data
-        $data['barang'] = $this->model->getPaggingData($config['per_page'],$from);
+        $data['barang'] = $this->model->getPaggingData($config['per_page'],$from,$text);
 
         foreach($data['barang'] as $key=>$row)
         {
             $data['barang'][$key]->harga_beli = rupiah($row->buy_price);
             $data['barang'][$key]->harga_jual = rupiah($row->sale_price);
         }
+        $data['all'] = count($jml);
 
-        $content = "list";
-        $this->template->output($data,$content);
+        $this->load->view('table',$data);
     }
 
     public function add()

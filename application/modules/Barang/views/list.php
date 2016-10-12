@@ -24,42 +24,18 @@
                         <div class="pull-right"><a href="<?=$link_add?>" class="btn btn-primary">Tambah</a></div>
                     </div><!-- /.box-header -->
                     <div class="box-body">
-                        <div class="table-responsive">
-                        <table id="" class="table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Kode</th>
-                                <th>Barkode</th>
-                                <th>Name</th>
-                                <th>Harga Beli</th>
-                                <th>Harga Jual</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php $no = $this->uri->segment('4') + 1; foreach($barang as $row) {?>
-                                <tr>
-                                    <td><?=$no++?></td>
-                                    <td><?=$row->code?></td>
-                                    <td><?=$row->barcode?></td>
-                                    <td><?=$row->name?></td>
-                                    <td><?=$row->harga_beli?></td>
-                                    <td><?=$row->harga_jual?></td>
-                                    <td>
-                                        <a class="btn btn-success btn-xs" href="<?=$link_edit.$row->id?>">Edit</a>
-                                        <a class="btn btn-danger btn-xs del" href="javascript:void(0);" id="<?=$row->id?>">Del</a>
-                                    </td>
-                                </tr>
-                            <?php } ?>
-                            </tbody>
-                        </table>
-                            <div class="row">
-                                <div class="col-md-12 text-right">
-                                    <?php echo $halaman; ?>
+                        <div class="row">
+                            <div class="col-xs-3 pull-right">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" placeholder="Nama Barang" id="text-search" value="<?=$this->session->has_userdata('text')?$this->session->text:''?>">
+                                    <span class="input-group-btn"><button class="btn btn-info btn-flat" id="btn-search" type="button">Go!</button></span>
+                                    <span class="input-group-btn"><button class="btn btn-warning btn-flat" id="btn-clear" type="button">Clear!</button></span>
                                 </div>
-
                             </div>
+                        </div>
+                        <div class="clearfix">&nbsp;</div>
+                        <div class="view-table">
+
                         </div>
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
@@ -68,12 +44,25 @@
     </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
 
+<div class="modal fade" id="loading" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>Loading ....</p>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <input type="hidden" id="iddel">
 <input type="hidden" id="url" value="<?=$link_delete?>">
+<input type="hidden" id="urlTable" value="<?=$link_table?>">
 
 <!-- page script -->
 <script type="text/javascript">
     $(function () {
+        kolom();
+
         $('.del').click(function(){
             $('#mymodal').modal('show');
             $('#iddel').val(this.id);
@@ -95,4 +84,33 @@
                 });
         });
     });
+
+    $('#btn-clear').click(function(){
+        valText = $('#text-search').val('');
+        kolom()
+    });
+
+    $('#btn-search').click(function(){
+        kolom();
+    });
+
+
+    function kolom()
+    {
+        site_url = $('#urlTable').val();
+        valText = $('#text-search').val();
+        $.ajax({
+            beforeSend:function(){
+                $("#loading").modal('show');
+            },
+            url: site_url,
+            type : 'post',
+            data : {text:valText},
+            cache: false,
+        })
+            .done(function( data ) {
+                $("#loading").modal('hide');
+                $(".view-table").html(data);
+            });
+    }
 </script>

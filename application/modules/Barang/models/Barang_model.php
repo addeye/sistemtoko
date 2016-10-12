@@ -36,9 +36,19 @@ class Barang_model extends Base_model
         return [];
     }
 
-    public function getPaggingData($num,$offset)
+    public function getPaggingData($num,$offset,$text)
     {
-        $pagedata = $this->pagingData($this->table,$num,$offset)->result();
+        $pagedata = $this->pagingData($this->table,$num,$offset,$text)->result();
+        if($pagedata)
+        {
+            return $pagedata;
+        }
+        return [];
+    }
+
+    public function getLikeData($text)
+    {
+        $pagedata = $this->likeData($this->table,$text)->result();
         if($pagedata)
         {
             return $pagedata;
