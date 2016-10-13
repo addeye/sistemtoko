@@ -42,6 +42,11 @@ class Base_model extends CI_Model
         return FALSE;
     }
 
+    function getLastInsertId()
+    {
+        return $this->db->insert_id();
+    }
+
     function updateData($table, $data, $condition)
     {
         $this->db->where($condition);

@@ -73,10 +73,11 @@ class Cart extends My_controller
         $get = $this->model->getBarcode($barcode);
         $jml = count($get);
         $tambah = TRUE;
+//        return var_dump($get);
 
         foreach ($this->cart->contents() as $items){
             $kode = $get->code;
-            if($items['id'] == $kode){
+            if($items['id'] === $kode){
                 $total = $items['qty'] + 1;
                 $data = array(
                     'rowid'   => $items['rowid'],
@@ -89,13 +90,15 @@ class Cart extends My_controller
         }
 
         if($tambah){
-            if($jml == 0){
-                /*
+            if($jml == 0)
+            {
+
                 echo "<script>
                 alert('Id barang yang dimasukan tidak ada!');
                 </script>";
-                */
-            }else{
+
+            }else
+            {
 
                     $data = array(
                         'id'      => $get->code,
@@ -103,7 +106,11 @@ class Cart extends My_controller
                         'price'   => $get->sale_price,
                         'name'    => $get->name
                     );
-                    $this->cart->insert($data);
+                $this->cart->product_name_rules = '[:print:]';
+                $result = $this->cart->insert($data);
+                var_dump($data);
+
+                var_dump($result);
 
 
             }
@@ -187,35 +194,48 @@ class Cart extends My_controller
 
     public function selesai()
     {
-        $this->load->helper('date');
-        $datestring = "%Y-%m-%d";
+        $number = $this->model->getkode();
+        $employee = $this->user_name();
+        $member = '0';
 
-        $tgl = mdate($datestring);
-        $table = "penjualan";
-        $table_2 = "barang";
-        foreach ($this->cart->contents() as $insert){
-            $total = $insert['price']*$insert['qty'];
-            $data = array(
-                'id_barang' => $insert['id'],
-                'qty' => $insert['qty'],
-                'total_harga' => $total,
-                'tgl' => $tgl
-            );
+        $dataTrans=array(
+            'number'=>$number,
+            'employee' => $employee,
+            'member' => $member
+        );
 
-            $this->myigniter_model->addData($table, $data);
-            $condition['id']=$insert['id'];
+        $result = $this->model->create($dataTrans);
+        if($result)
+        {
+            $sales = $this->model->insertId();
+            foreach($this->cart->contents() as $insert)
+            {
+                $total = $insert['price']*$insert['qty'];
+                $code = $insert['id'];
+                $pageData = $this->model->getByCode($code);
 
-            $selectbarang = $this->myigniter_model->getData($table_2,$condition);
-            $selectbarang = $selectbarang->row();
-            $stok_barang = $selectbarang->stok;
+                $dataDetail = array(
+                    'sales' => $sales,
+                    'item' => $pageData->id,
+                    'qty' => $insert['qty'],
+                    'price' => $insert['price'],
+                    'total' => $total,
+                );
 
-            $data_up = array(
-                'stok' => $stok_barang - $insert['qty']
-            );
+                $dquery = $this->model->createDetail($dataDetail);
+                if($dquery)
+                {
+                    $dataItem=array(
+                        'stock' => $pageData->stock - $insert['qty'],
+                    );
 
-            $this->myigniter_model->updateData($table_2,$data_up,$condition);
+                    $this->model->updateItem($pageData->id,$dataItem);
+                }
+
+            }
+
         }
         $this->cart->destroy();
-        redirect('myigniter');
+        redirect('teller/cart');
     }
 }
