@@ -12,6 +12,7 @@ class Brg extends My_controller
     {
         parent::__construct();
         $this->load->model(array('barang_model'=>'model'));
+        $this->load->library('pagination');
     }
 
     public function index()

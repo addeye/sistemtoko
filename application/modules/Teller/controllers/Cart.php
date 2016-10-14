@@ -19,9 +19,11 @@ class Cart extends My_controller
     public function index()
     {
         $data['cari'] = $this->model->getCode();
+        $data['member'] = $this->model->getCodeMember();
 
         $data['title'] = "Minimarket Versi 1";
-        $data['judule'] = "Gowonan Market";
+        $data['judule'] = "Toko Rachmad";
+        $data['user_name'] = $this->user_name();
         $content = "cart";
         $this->kasirweb->output($data, $content);
     }
@@ -196,12 +198,24 @@ class Cart extends My_controller
     {
         $number = $this->model->getkode();
         $employee = $this->user_name();
-        $member = '0';
+        $member = $this->input->post('member');
+
+        $rowmember = $this->model->getMemberByKode($member);
+//        return var_dump(count($rowmember));
+
+        if(!count($rowmember))
+        {
+            $memberid = 0;
+        } else
+        {
+            $memberid = $rowmember->id;
+        }
+
 
         $dataTrans=array(
             'number'=>$number,
             'employee' => $employee,
-            'member' => $member
+            'member' => $memberid
         );
 
         $result = $this->model->create($dataTrans);
@@ -236,6 +250,6 @@ class Cart extends My_controller
 
         }
         $this->cart->destroy();
-        redirect('teller/cart');
+//        redirect('teller/cart');
     }
 }

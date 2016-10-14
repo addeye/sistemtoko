@@ -3,8 +3,6 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-
-
                 <div class="bs-example bs-example-tabs">
                     <div>
                         <ul id="myTab" class="nav nav-tabs" role="tablist">
@@ -49,6 +47,16 @@
                     </div>
                 </a>
             </div>
+            <div class="col-md-12">
+
+            </div>
+            <div class="col-md-12">
+                <form>
+                    <div class="input-group">
+                        <input id="member" type="text" name="kode" class="form-control" placeholder="Kode Member">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </section>
@@ -82,12 +90,15 @@
             </div>
             <div class="modal-footer">
                 <button type="button" id="kembalian" class="btn btn-primary">KEMBALIAN</button>
-                <a class="btn btn-success" href="<?=site_url("teller/cart/selesai")?>">SELESAI</a>
+                <button type="button" class="btn btn-success" onclick="selesai();">SELESAI</button>
                 <form>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<input type="hidden" id="urlSelesai" value="<?=site_url("teller/cart/selesai")?>">
+
 <script src="<?php echo base_url('assets/kasirweb/js/jquery-ui.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/kasirweb/js/jquery.price_format.2.0.min.js') ?>"></script>
 <script>
@@ -97,8 +108,19 @@
             "<?= $row->barcode ?>",
             <?php endforeach ?>
         ];
+
+        var availableMember = [
+            <?php foreach ($member as $row): ?>
+            "<?= $row->kode ?>",
+            <?php endforeach ?>
+        ];
+
         $( "#manual" ).autocomplete({
             source: availableTags
+        });
+
+        $( "#member" ).autocomplete({
+            source: availableMember
         });
 
         $('#myTab a').click(function (e) {
@@ -150,6 +172,25 @@
         })
             .done(function( data ) {
                 $(".keranjang").html(data);
+            });
+    }
+
+    function selesai()
+    {
+        site_url = $('#urlSelesai').val();
+        var member = $('#member').val();
+        $.ajax({
+            url: site_url,
+            type : 'post',
+            data : {member:member},
+            cache: false,
+        })
+            .done(function( data ) {
+                $('#member').val('');
+                $('#bayare').val('');
+                kolom();
+                total();
+                $('#modal-id').modal('hide');
             });
     }
 

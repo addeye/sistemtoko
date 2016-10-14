@@ -11,6 +11,7 @@ class Cart_model extends Base_model
     protected $table = 'm_barang';
     protected $tsales = 'trans_sales';
     protected $dsales = 'detail_sales';
+    protected $member = 'm_member';
 
     public function __construct()
     {
@@ -71,11 +72,33 @@ class Cart_model extends Base_model
         return [];
     }
 
+    public function getMemberByKode($kode)
+    {
+        $condition['kode']=$kode;
+        $pagedata = $this->getData($this->member,$condition)->row();
+        if($pagedata)
+        {
+            return $pagedata;
+        }
+        return [];
+
+    }
+
 
     public function getCode()
     {
         $condition['barcode !='] = '';
         $pagedata = $this->getData($this->table,$condition)->result();
+        if($pagedata)
+        {
+            return $pagedata;
+        }
+        return [];
+    }
+
+    public function getCodeMember()
+    {
+        $pagedata = $this->get($this->member)->result();
         if($pagedata)
         {
             return $pagedata;
@@ -112,7 +135,7 @@ class Cart_model extends Base_model
 
     public function getkode()
     {
-        $kode = $this->getkodeunik($this->table,'P');
+        $kode = $this->getkodeunik($this->tsales,'P',7);
         return $kode;
     }
 }
