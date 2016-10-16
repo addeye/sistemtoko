@@ -252,4 +252,11 @@ class Cart extends My_controller
         $this->cart->destroy();
 //        redirect('teller/cart');
     }
+
+    public function print_struck($id)
+    {
+        $pagedata['struck'] = $this->model->getByIdTrans_Sales($id);
+
+        $this->load->view('print_struck',$pagedata);
+    }
 }

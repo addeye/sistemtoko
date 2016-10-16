@@ -138,4 +138,16 @@ class Cart_model extends Base_model
         $kode = $this->getkodeunik($this->tsales,'P',7);
         return $kode;
     }
+
+    public function getByIdTrans_Sales($id)
+    {
+        $condition['id']=$id;
+        $result = $this->getData($this->tsales,$condition)->row();
+        $result->detail = $this->getData($this->dsales,array('sales'=>$result->id))->result();
+        if($result)
+        {
+            return $result;
+        }
+        return [];
+    }
 }

@@ -13,6 +13,15 @@ if ( ! function_exists('tgl_indo'))
     }
 }
 
+if(!function_exists('tgl_indo_waktu'))
+{
+    function tgl_indo_waktu($tgl)
+    {
+        $str = strtotime($tgl);
+        return date('d/m/y H:i:s',$str);
+    }
+}
+
 if ( ! function_exists('hari_indo'))
 {
     function hari_indo()

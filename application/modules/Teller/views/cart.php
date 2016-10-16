@@ -98,6 +98,7 @@
 </div><!-- /.modal -->
 
 <input type="hidden" id="urlSelesai" value="<?=site_url("teller/cart/selesai")?>">
+<input type="hidden" id="urlcetak" value="<?=site_url('teller/cart/print_struck')?>" >
 
 <script src="<?php echo base_url('assets/kasirweb/js/jquery-ui.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/kasirweb/js/jquery.price_format.2.0.min.js') ?>"></script>
