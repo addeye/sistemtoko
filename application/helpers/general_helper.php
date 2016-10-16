@@ -10,7 +10,7 @@ if(! function_exists('rupiah'))
 {
     function rupiah($nilai, $pecahan = 0)
     {
-        return 'Rp. '.number_format($nilai, $pecahan, ',', '.');
+        return number_format($nilai, $pecahan, ',', '.');
     }
 }
 

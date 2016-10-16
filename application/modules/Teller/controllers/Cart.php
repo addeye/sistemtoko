@@ -199,6 +199,8 @@ class Cart extends My_controller
         $number = $this->model->getkode();
         $employee = $this->user_name();
         $member = $this->input->post('member');
+        $grandtotal = $this->input->post('grandtotal');
+        $cash = $this->input->post('cash');
 
         $rowmember = $this->model->getMemberByKode($member);
 //        return var_dump(count($rowmember));
@@ -215,10 +217,14 @@ class Cart extends My_controller
         $dataTrans=array(
             'number'=>$number,
             'employee' => $employee,
-            'member' => $memberid
+            'member' => $memberid,
+            'grand_total' => $grandtotal,
+            'cash' => $cash
         );
 
         $result = $this->model->create($dataTrans);
+        $last_id = $this->model->insertId();
+
         if($result)
         {
             $sales = $this->model->insertId();
@@ -251,6 +257,7 @@ class Cart extends My_controller
         }
         $this->cart->destroy();
 //        redirect('teller/cart');
+        echo $last_id;
     }
 
     public function print_struck($id)

@@ -144,6 +144,10 @@ class Cart_model extends Base_model
         $condition['id']=$id;
         $result = $this->getData($this->tsales,$condition)->row();
         $result->detail = $this->getData($this->dsales,array('sales'=>$result->id))->result();
+        foreach($result->detail as $key=>$row)
+        {
+            $result->detail[$key]->barang = $this->getId($row->item);
+        }
         if($result)
         {
             return $result;

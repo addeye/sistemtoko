@@ -97,8 +97,11 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<input type="hidden" id="grand_total">
+
 <input type="hidden" id="urlSelesai" value="<?=site_url("teller/cart/selesai")?>">
 <input type="hidden" id="urlcetak" value="<?=site_url('teller/cart/print_struck')?>" >
+<input type="hidden" id="lastid" value="0">
 
 <script src="<?php echo base_url('assets/kasirweb/js/jquery-ui.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/kasirweb/js/jquery.price_format.2.0.min.js') ?>"></script>
@@ -129,7 +132,7 @@
             $(this).tab('show');
         })
 
-        $('#kode').keyup(function() {
+        $('#kode').keydown(function() {
             konfirmasi();
         });
 
@@ -180,15 +183,20 @@
     {
         site_url = $('#urlSelesai').val();
         var member = $('#member').val();
+        var grandtotal = $('#grand_total').val();
+        var cash = $('#bayare').unmask();
+
         $.ajax({
             url: site_url,
             type : 'post',
-            data : {member:member},
+            data : {member:member,grandtotal:grandtotal,cash:cash},
             cache: false,
         })
             .done(function( data ) {
+                $('#lastid').val(data);
                 $('#member').val('');
                 $('#bayare').val('');
+                loadOtherPage();
                 kolom();
                 total();
                 $('#modal-id').modal('hide');
@@ -205,6 +213,7 @@
             cache: false,
         })
             .done(function( data ) {
+                $('#grand_total').val(data);
                 $("#total, .totalan").html(data).priceFormat({
                     prefix: 'Rp. ',
                     thousandsSeparator: '.',
@@ -257,5 +266,15 @@
                 kolom();
                 total();
             });
+    }
+
+    function loadOtherPage() {
+        var urlcetak = $("#urlcetak").val();
+        var lastid = $("#lastid").val();
+        $("<iframe>")                             // create a new iframe element
+            .hide()                               // make it invisible
+            .attr("src", urlcetak+"/"+lastid) // point the iframe to the page you want to print
+            .appendTo("body");                    // add iframe to the DOM to cause it to load the page
+
     }
 </script>
