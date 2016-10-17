@@ -197,7 +197,7 @@ class Cart extends My_controller
     public function selesai()
     {
         $number = $this->model->getkode();
-        $employee = $this->user_name();
+        $employee = $this->user_id();
         $member = $this->input->post('member');
         $grandtotal = $this->input->post('grandtotal');
         $cash = $this->input->post('cash');
@@ -262,6 +262,7 @@ class Cart extends My_controller
 
     public function print_struck($id)
     {
+        $pagedata['user_name'] = $this->user_name();
         $pagedata['struck'] = $this->model->getByIdTrans_Sales($id);
 
         $this->load->view('print_struck',$pagedata);

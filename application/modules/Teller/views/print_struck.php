@@ -64,7 +64,7 @@
                     <th>TERIMA KASIH ATAS KUNJUNGAN ANDA</th>
                 </tr>
                 <tr>
-                    <th>#<?=$struck->number?>#<?=tgl_indo_waktu($struck->date)?>#<?=$struck->employee?></th>
+                    <th>#<?=$struck->number?>#<?=tgl_indo_waktu($struck->date)?>#<?=$user_name?>#<?=$struck->employee?></th>
                 </tr>
             </table>
         </div>
