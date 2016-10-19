@@ -57,10 +57,10 @@
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-4 control-label">Stock Nyata / Minus</label>
                                 <div class="col-sm-2">
-                                    <input type="number" class="form-control" name="real" placeholder="Stock Nyata">
+                                    <input type="number" id="stock_nyata" class="form-control" name="real" placeholder="Stock Nyata">
                                 </div>
                                 <div class="col-sm-2">
-                                    <input type="number" class="form-control" name="minus" placeholder="Minus">
+                                    <input type="number" class="form-control" id="minus" name="minus" placeholder="Minus">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -102,6 +102,15 @@
                .success(function(data) {
                    $('#detail-item').html(data);
                });
-       }) ;
+       });
+        $('#stock_nyata').keyup(function(){
+            var stock = $('#stock').val();
+            var stock_nyata = $('#stock_nyata').val();
+            console.log(stock_nyata);
+            var minus = parseInt(stock_nyata,10) - parseInt(stock,10);
+            $('#minus').val(minus);
+        });
     });
+
+
 </script>

@@ -72,7 +72,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="<?=site_url('opname/sop')?>"><i class="fa fa-circle-o"></i> Stok Opname</a></li>
-                    <li><a href="<?=site_url('content/page')?>"><i class="fa fa-circle-o"></i> Cetak Daftar Opname</a></li>
+                    <li><a href="<?=site_url('opname/sop/form')?>"><i class="fa fa-circle-o"></i> Cetak Daftar Opname</a></li>
                 </ul>
             </li>
             <li class="treeview">

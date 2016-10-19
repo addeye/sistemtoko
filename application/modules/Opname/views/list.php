@@ -41,13 +41,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <?php $no=1; foreach($member as $row) {?>
+                            <?php $no=1; foreach($so as $row) {?>
                                 <tr>
                                     <td><?=$no++?></td>
-                                    <td><?=$row->kode?></td>
-                                    <td><?=$row->name?></td>
-                                    <td><?=$row->address?></td>
-                                    <td><?=$row->phone?></td>
+                                    <td><?=$row->date?></td>
+                                    <td><?=$row->barang->code?></td>
+                                    <td><?=$row->barang->name?></td>
+                                    <td><?=$row->stock?></td>
+                                    <td><?=$row->real?></td>
+                                    <td><?=$row->minus?></td>
                                     <td>
                                         <a class="btn btn-success btn-xs" href="<?=$link_edit.$row->id?>">Edit</a>
                                         <a class="btn btn-danger btn-xs del" href="javascript:void(0);" id="<?=$row->id?>">Del</a>

@@ -43,7 +43,7 @@ class Opname_model extends Base_model
 
     public function getBarangAll()
     {
-        $result = $this->get($this->barang)->result();
+        $result = $this->get($this->barang,'ASC')->result();
         if($result)
         {
             return $result;
@@ -110,6 +110,20 @@ class Opname_model extends Base_model
     {
         $kode = $this->getkodeunik($this->table,'M');
         return $kode;
+    }
+
+    public function getBarangByFilter($from,$until)
+    {
+        $condition= array(
+            'code'=>$from,
+            'code'=>$until
+        );
+        $result = $this->getData($this->barang,$condition)->result();
+        if($result)
+        {
+            return $result;
+        }
+        return [];
     }
 
 }
