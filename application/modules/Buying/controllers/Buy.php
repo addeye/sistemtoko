@@ -176,6 +176,7 @@ class Buy extends My_controller
             'buy'=>$buy,
             'item'=>$item,
             'qty'=>$qty,
+            'residue'=>$qty,
             'unit'=>$unit,
             'piece'=>$piece,
             'price'=>$price,
@@ -303,6 +304,7 @@ class Buy extends My_controller
                 'buy'=>$idbuy,
                 'item'=>$row->item,
                 'qty'=>1,
+                'residue'=>1,
                 'piece'=>1,
                 'price'=>1000,
                 'total'=>1*1000
@@ -327,6 +329,7 @@ class Buy extends My_controller
         {
             $data = array(
                 'qty'=>$qty[$i],
+                'residue'=>$qty[$i],
                 'unit'=>$unit[$i],
                 'piece'=>$piece[$i],
                 'price'=>$price[$i],

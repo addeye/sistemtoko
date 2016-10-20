@@ -115,8 +115,8 @@ class Opname_model extends Base_model
     public function getBarangByFilter($from,$until)
     {
         $condition= array(
-            'code'=>$from,
-            'code'=>$until
+            'code >=' => $from,
+            'code <=' => $until
         );
         $result = $this->getData($this->barang,$condition)->result();
         if($result)

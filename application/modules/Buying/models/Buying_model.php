@@ -10,6 +10,7 @@ class Buying_model extends Base_model
 {
     protected $table = 'trans_buy';
     protected $table_detail = 'detail_buy';
+    protected $histroy = 'history_prices';
 
     public function __construct()
     {
@@ -250,5 +251,10 @@ class Buying_model extends Base_model
             return $pagedata;
         }
         return [];
+    }
+
+    public function save_histroy($data=array())
+    {
+        $result = $this->addData($this->histroy,$data);
     }
 }

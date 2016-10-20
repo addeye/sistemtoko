@@ -11,6 +11,7 @@ class Cart_model extends Base_model
     protected $table = 'm_barang';
     protected $tsales = 'trans_sales';
     protected $dsales = 'detail_sales';
+    protected $dbuy = 'detail_buy';
     protected $member = 'm_member';
 
     public function __construct()
@@ -148,6 +149,18 @@ class Cart_model extends Base_model
         {
             $result->detail[$key]->barang = $this->getId($row->item);
         }
+        if($result)
+        {
+            return $result;
+        }
+        return [];
+    }
+
+    public function getByItemNotNullDetailBuy($id)
+    {
+        $condition['item']=$id;
+        $condition['residue !='] = 0;
+        $result = $this->getData($this->dbuy,$condition)->rseult();
         if($result)
         {
             return $result;

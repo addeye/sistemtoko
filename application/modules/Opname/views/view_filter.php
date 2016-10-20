@@ -15,7 +15,7 @@
         <tr>
             <td><?=$no++?></td>
             <td><?=$row->code?></td>
-            <td><?=$row->name?>/td>
+            <td><?=$row->name?></td>
             <td><?=$row->stock?></td>
             <td></td>
             <td></td>

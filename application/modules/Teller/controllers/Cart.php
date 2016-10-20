@@ -234,6 +234,22 @@ class Cart extends My_controller
                 $code = $insert['id'];
                 $pageData = $this->model->getByCode($code);
 
+                $dbuys = $this->model->getByItemNotNullDetailBuy($pageData->id);
+
+                foreach($dbuys as $row)
+                {
+                    $residue = $row->residue;
+                    if($residue >= $insert['qty'])
+                    {
+                        $residue = $residue - $insert['qty'];
+                    }
+                    else
+                    {
+                        $residue = $insert['qty'] - $residue;
+                    }
+
+                }
+
                 $dataDetail = array(
                     'sales' => $sales,
                     'item' => $pageData->id,

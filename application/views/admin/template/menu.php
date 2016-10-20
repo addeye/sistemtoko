@@ -21,10 +21,16 @@
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span></i>
                 </a>
             </li>
-            <li class="">
-                <a href="<?=site_url('user/home')?>">
-                    <i class="fa fa-dashboard"></i> <span>User Manajemen</span></i>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-pie-chart"></i>
+                    <span>User Manajemen</span>
+                    <i class="fa fa-angle-left pull-right"></i>
                 </a>
+                <ul class="treeview-menu">
+                    <li><a href="<?=site_url('user/home')?>"><i class="fa fa-circle-o"></i> User</a></li>
+                    <li><a href="<?=site_url('activity/log')?>"><i class="fa fa-circle-o"></i> Log Activity</a></li>
+                </ul>
             </li>
             <li class="treeview">
                 <a href="#">

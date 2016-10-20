@@ -74,3 +74,8 @@ if(!function_exists('savebarang'))
 
     }
 }
+
+if(!function_exists('history_price'))
+{
+
+}
