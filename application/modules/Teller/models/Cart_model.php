@@ -160,11 +160,22 @@ class Cart_model extends Base_model
     {
         $condition['item']=$id;
         $condition['residue !='] = 0;
-        $result = $this->getData($this->dbuy,$condition)->rseult();
+        $result = $this->getData($this->dbuy,$condition,'ASC')->result();
         if($result)
         {
             return $result;
         }
         return [];
+    }
+
+    public function updateResidueDetailBuy($id,$data)
+    {
+        $condition['id']=$id;
+        $result = $this->updateData($this->dbuy,$data,$condition);
+        if($result)
+        {
+            return TRUE;
+        }
+        return FALSE;
     }
 }

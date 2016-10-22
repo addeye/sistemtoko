@@ -235,20 +235,32 @@ class Cart extends My_controller
                 $pageData = $this->model->getByCode($code);
 
                 $dbuys = $this->model->getByItemNotNullDetailBuy($pageData->id);
+                $qty = $insert['qty'];
+                $profit = array();
 
                 foreach($dbuys as $row)
                 {
                     $residue = $row->residue;
-                    if($residue >= $insert['qty'])
+
+                    if($residue >= $qty)
                     {
-                        $residue = $residue - $insert['qty'];
+                        $residuetemp = $residue - $qty;
+                        $subprofit = $insert['price'] - $row->price;
+                        $profit[] = $subprofit*$qty;
+                        $this->model->updateResidueDetailBuy($row->id,array('residue'=>$residuetemp));
+                        break;
                     }
                     else
                     {
-                        $residue = $insert['qty'] - $residue;
+                        $residuetemp = $qty - $residue;
+                        $subprofit = $insert['price'] - $row->price;
+                        $profit[] = $subprofit*$residue;
+                        $this->model->updateResidueDetailBuy($row->id,array('residue'=>0));
+                        $qty=$residuetemp;
                     }
-
                 }
+
+                $finalprofit = array_sum($profit);
 
                 $dataDetail = array(
                     'sales' => $sales,
@@ -256,6 +268,7 @@ class Cart extends My_controller
                     'qty' => $insert['qty'],
                     'price' => $insert['price'],
                     'total' => $total,
+                    'profit' => $finalprofit
                 );
 
                 $dquery = $this->model->createDetail($dataDetail);

@@ -9,6 +9,7 @@
             <th>Name</th>
             <th>Harga Beli</th>
             <th>Harga Jual</th>
+            <th>Stock</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -21,6 +22,7 @@
                 <td><?=$row->name?></td>
                 <td><?=$row->harga_beli?></td>
                 <td><?=$row->harga_jual?></td>
+                <td><?=$row->stock?></td>
                 <td>
                     <a class="btn btn-success btn-xs" href="<?=$link_edit.$row->id?>">Edit</a>
                     <a class="btn btn-danger btn-xs del" href="javascript:void(0);" id="<?=$row->id?>">Del</a>

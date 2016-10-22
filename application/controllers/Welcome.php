@@ -22,11 +22,23 @@ class Welcome extends My_controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('dashboard_model','model');
 	}
 
 	public function index()
 	{
-		$this->template->output(NULL,'admin/home');
+		$total= array();
+		$pagedata['sales'] = $this->model->getTransSalesByLast30Day();
+		foreach($pagedata['sales'] as $key=>$row)
+		{
+			$total[] = $row->grand_total;
+		}
+
+		echo count($pagedata['sales']);
+//		return var_dump($pagedata);
+		$pagedata['total_penjualan'] = array_sum($total);
+
+		$this->template->output($pagedata,'admin/home');
 		//$this->load->view('view_barcode');
 	}
 

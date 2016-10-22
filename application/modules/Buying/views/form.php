@@ -49,7 +49,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Faktur</label>
                                     <div class="col-sm-9">
-                                        <p class="form-control-static"><?=$data->number?> / <?=$data->po[0]->number?></p>
+                                        <p class="form-control-static"><?=$data->number?> / <?=isset($data->po[0]->number)?$data->po[0]->number:''?></p>
                                     </div>
                                 </div>
                                 <div class="form-group">

@@ -50,7 +50,7 @@
                                     <input type="text" class="form-control" name="number" value="<?=$kode?>">
                                 </div>
                                 <div class="col-sm-4">
-                                    <select name="po" id="nomor_po" class="form-control select2" required>
+                                    <select name="po" id="nomor_po" class="form-control select2">
                                         <option value="">Nomor PO</option>
                                         <?php foreach($listpo as $po) {?>
                                             <option value="<?=$po->id?>"><?=$po->number?></option>

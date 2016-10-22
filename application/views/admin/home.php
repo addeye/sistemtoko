@@ -115,7 +115,7 @@
                     <!-- small box -->
                     <div class="small-box bg-aqua">
                         <div class="inner">
-                            <h3>150 Jt</h3>
+                            <h3><?=rupiah($total_penjualan)?></h3>
                             <p>Penjualan 30 Hari Akhir</p>
                         </div>
                         <div class="icon">
