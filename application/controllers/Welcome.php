@@ -33,10 +33,47 @@ class Welcome extends My_controller {
 		{
 			$total[] = $row->grand_total;
 		}
-
-		echo count($pagedata['sales']);
-//		return var_dump($pagedata);
 		$pagedata['total_penjualan'] = array_sum($total);
+
+		$pagedata['invoice'] = $this->model->getInvoiceNotSend();
+		$pagedata['buytotal'] = $this->model->getTransBuyByLast30Day();
+		$pagedata['kredit'] = $this->model->getTotalKredit();
+		$gsales = $this->model->getGroupBySales();
+		$gbuy = $this->model->getGroupByBuy();
+
+		foreach($gsales as $row)
+		{
+			$datemonth[$row->month]=$row->total;
+		}
+
+		foreach($gbuy as $row)
+		{
+			$datemonthbuy[$row->month] = $row->total;
+		}
+
+		for($i=0; $i<12; $i++)
+		{
+			$data[] = array(
+				'year'=> date('Y'),
+				'month' => strlen($i)==2?$i:'0'.$i,
+				'y' => isset($datemonth[$i+1])?$datemonth[$i+1]:0
+			);
+		}
+
+		for($i=0; $i<12; $i++)
+		{
+			$databuy[] = array(
+				'year'=> date('Y'),
+				'month' => strlen($i)==2?$i:'0'.$i,
+				'y' => isset($datemonthbuy[$i+1])?$datemonthbuy[$i+1]:0
+			);
+		}
+
+		$pagedata['gbuy'] = $databuy;
+		$pagedata['gsales'] = $data;
+
+//		return var_dump($pagedata['gsales']);
+
 
 		$this->template->output($pagedata,'admin/home');
 		//$this->load->view('view_barcode');

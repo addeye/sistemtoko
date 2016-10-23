@@ -149,6 +149,7 @@ class Buying_model extends Base_model
     {
         $condition['id']=$id;
         $pagedata = $this->getData($this->table_detail,$condition)->row();
+        $pagedata->trans_buy = $this->getData($this->table,array('id'=>$pagedata->buy))->row();
         if($pagedata)
         {
             return $pagedata;
@@ -251,10 +252,5 @@ class Buying_model extends Base_model
             return $pagedata;
         }
         return [];
-    }
-
-    public function save_histroy($data=array())
-    {
-        $result = $this->addData($this->histroy,$data);
     }
 }

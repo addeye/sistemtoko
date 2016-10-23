@@ -156,7 +156,7 @@ class Buy extends My_controller
             'unit' => $this->model->getUnit(),
         );
 
-//        return var_dump($data);
+//        return var_dump($data['data']);
 
         $content = "form";
         $this->template->output($data,$content);
@@ -183,6 +183,7 @@ class Buy extends My_controller
             'total'=>$total,
         );
 
+        update_trans_buy($buy,array('grand_total'=>$total));
         //update stock
         savebarang($item,array('stock'=>$qty));
 
@@ -195,6 +196,13 @@ class Buy extends My_controller
         $data['stock'] = $row->qty;
         $item = $row->item;
 
+        $idbuy = $row->buy;
+        $grandtotal = $row->total;
+
+//        return var_dump($row->total);
+
+        //update trans buy
+        update_trans_buy($idbuy,array('grand_total'=>$grandtotal),0);
         //update stock
         savebarang($item,$data,0);
 
@@ -203,6 +211,7 @@ class Buy extends My_controller
 
     public function listCart($id)
     {
+        $data['idtransbuy'] = $id;
         $data['DPo'] = $this->model->getByBuy($id);
         foreach($data['DPo'] as $key=>$d)
         {
@@ -310,6 +319,8 @@ class Buy extends My_controller
                 'total'=>1*1000
             );
 
+            update_trans_buy($idbuy,array('grand_total'=>1000));
+
             savebarang($row->item,array('stock'=>1));
 
             $this->model->createDetail($data);
@@ -324,6 +335,11 @@ class Buy extends My_controller
         $unit = $this->input->post('unit');
         $piece = $this->input->post('piece');
         $price = $this->input->post('price');
+        $grandtotal = $this->input->post('grandtotal');
+        $idtransbuy = $this->input->post('idtransbuy');
+
+//        return var_dump($grandtotal);
+
 
         for($i=0; $i<count($id); $i++)
         {
@@ -353,5 +369,8 @@ class Buy extends My_controller
             $this->model->updateDetail($id[$i],$data);
 
         }
+
+        $this->model->update($idtransbuy,array('grand_total'=>$grandtotal));
+
     }
 }

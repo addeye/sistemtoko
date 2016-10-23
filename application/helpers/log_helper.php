@@ -70,12 +70,40 @@ if(!function_exists('savebarang'))
         }
 
         //save to database
-        $CI->log_model->savebarang($id,$data);
+//        $CI->log_model->savebarang($id,$data);
 
     }
 }
 
-if(!function_exists('history_price'))
+if(!function_exists('update_trans_buy'))
 {
+    function update_trans_buy($id,$data=array(),$act=1)
+    {
+        $CI = & get_instance();
 
+        //load model log
+        $CI->load->model('log_model');
+
+        //call data
+        $row = $CI->log_model->getTransBuyById($id);
+        $old_total = $row->grand_total;
+
+        switch ($act)
+        {
+            case 1:
+                $data['grand_total'] = $data['grand_total']+$old_total;
+                //save to database
+                $CI->log_model->updateTransBuy($id,$data);
+                break;
+            case 0:
+                $data['grand_total'] = $old_total-$data['grand_total'];
+                //save to database
+                $CI->log_model->updateTransBuy($id,$data);
+                break;
+        }
+
+        //save to database
+//        $CI->log_model->savebarang($id,$data);
+
+    }
 }

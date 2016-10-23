@@ -31,4 +31,16 @@ class Log_model extends Base_model
         $result = $this->getData('m_barang',array('id'=>$id))->row();
         return $result;
     }
+
+    public function updateTransBuy($id,$data=array())
+    {
+        $condition['id'] = $id;
+        return $this->updateData('trans_buy',$data,$condition);
+    }
+
+    public function getTransBuyById($id)
+    {
+        $result = $this->getData('trans_buy',array('id'=>$id))->row();
+        return $result;
+    }
 }

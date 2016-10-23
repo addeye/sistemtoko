@@ -13,7 +13,7 @@
 
                     gridColor: "Silver",
                     tickColor: "silver",
-                    valueFormatString: "DD/MMM"
+                    valueFormatString: "MMM"
 
                 },
                 toolTip:{
@@ -37,17 +37,9 @@
                         markerType: "square",
                         color: "#F08080",
                         dataPoints: [
-                            { x: new Date(2010,0,3), y: 650 },
-                            { x: new Date(2010,0,5), y: 700 },
-                            { x: new Date(2010,0,7), y: 710 },
-                            { x: new Date(2010,0,9), y: 658 },
-                            { x: new Date(2010,0,11), y: 734 },
-                            { x: new Date(2010,0,13), y: 963 },
-                            { x: new Date(2010,0,15), y: 847 },
-                            { x: new Date(2010,0,17), y: 853 },
-                            { x: new Date(2010,0,19), y: 869 },
-                            { x: new Date(2010,0,21), y: 943 },
-                            { x: new Date(2010,0,23), y: 970 }
+                            <?php foreach($gsales as $row){?>
+                            { x: new Date(<?=$row['year']?>,<?=$row['month']?>,1), y: <?=$row['y']?> },
+                            <?php }?>
                         ]
                     },
                     {
@@ -58,17 +50,9 @@
                         lineThickness: 2,
 
                         dataPoints: [
-                            { x: new Date(2010,0,3), y: 510 },
-                            { x: new Date(2010,0,5), y: 560 },
-                            { x: new Date(2010,0,7), y: 540 },
-                            { x: new Date(2010,0,9), y: 558 },
-                            { x: new Date(2010,0,11), y: 544 },
-                            { x: new Date(2010,0,13), y: 693 },
-                            { x: new Date(2010,0,15), y: 657 },
-                            { x: new Date(2010,0,17), y: 663 },
-                            { x: new Date(2010,0,19), y: 639 },
-                            { x: new Date(2010,0,21), y: 673 },
-                            { x: new Date(2010,0,23), y: 660 }
+                            <?php foreach($gbuy as $row){?>
+                            { x: new Date(<?=$row['year']?>,<?=$row['month']?>,1), y: <?=$row['y']?> },
+                            <?php }?>
                         ]
                     }
 
@@ -128,8 +112,8 @@
                     <!-- small box -->
                     <div class="small-box bg-green">
                         <div class="inner">
-                            <h3>5 Invoice</h3>
-                            <p>PO Belum Terkirim</p>
+                            <h3><?=$invoice?> Brg</h3>
+                            <p>PO Belum Dikirim</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
@@ -141,7 +125,7 @@
                     <!-- small box -->
                     <div class="small-box bg-yellow">
                         <div class="inner">
-                            <h3>7 Jt</h3>
+                            <h3><?=rupiah($buytotal)?></h3>
                             <p>Pembelian 30 Hari Akhir</p>
                         </div>
                         <div class="icon">
@@ -154,7 +138,7 @@
                     <!-- small box -->
                     <div class="small-box bg-red">
                         <div class="inner">
-                            <h3>3 Jt</h3>
+                            <h3><?=rupiah($kredit)?></h3>
                             <p>Sisa Hutang</p>
                         </div>
                         <div class="icon">

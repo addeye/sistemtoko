@@ -1,5 +1,6 @@
 <div class="box-body">
     <form id="formcart">
+        <input type="hidden" name="idtransbuy" value="<?=$idtransbuy?>">
     <table id="" class="table table-bordered table-hover">
         <thead>
         <tr>
@@ -14,7 +15,7 @@
         </thead>
         <tbody>
         <?php
-        if(!$DPo)
+        if(!count($DPo))
         {
             echo '<tr><td colspan="7">Data Kosong</td></tr>';
         }
@@ -62,9 +63,10 @@
             <td class="text-right"><?=rupiah($ppn = diskon($buy->ppn,$finaltot))?></td>
             <td></td>
         </tr>
+            <?php $netto = $finaltot-$rpdiskon-$ppn; ?>
         <tr>
             <th class="text-right" colspan="5">NETTO</th>
-            <td class="text-right"><?=rupiah($finaltot-$rpdiskon-$ppn)?></td>
+            <td class="text-right"><?=rupiah($netto)?></td>
             <td></td>
         </tr>
         <?php } ?>
@@ -72,9 +74,10 @@
     </table>
     <hr>
     <button type="button" class="btn btn-success simpancart">Simpan</button>
+        <input type="hidden" name="grandtotal" value="<?=isset($netto)?$netto:0?>">
     </form>
 </div><!-- /.box-body -->
-<input type="hidden" id="urlHapus" value="<?=site_url('buying/buy/deleteCart/')?>">
+<input type="hidden" id="urlHapus" value="<?=site_url('buying/buy/deleteCart')?>">
 <input type="hidden" id="urlMultipleCart" value="<?=site_url('buying/buy/multipleInsertCart')?>">
 
 <script>

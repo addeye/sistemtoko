@@ -145,12 +145,12 @@
         </div><!-- /.row -->
     </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
-
+<?php $idpo = count($data->po)?$data->po[0]->id:0; ?>
 <input type="hidden" id="url" value="<?=site_url('buying/buy/listCart/'.$data->id)?>">
 <input type="hidden" id="urlSimpan" value="<?=site_url('buying/buy/addCart')?>">
 <input type="hidden" id="urlcetak" value="<?=site_url('buying/buy/print_po/'.$data->id)?>" >
 <input type="hidden" id="urlharga" value="<?=site_url('buying/buy/getprice_item/')?>" >
-<input type="hidden" id="urlTransfer" value="<?=site_url('buying/buy/transiteItem/'.$data->po[0]->id.'/'.$data->id)?>">
+<input type="hidden" id="urlTransfer" value="<?=site_url('buying/buy/transiteItem/'.$idpo.'/'.$data->id)?>">
 
 <div class="modal fade" id="loading" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">

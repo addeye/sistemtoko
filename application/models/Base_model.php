@@ -106,4 +106,12 @@ class Base_model extends CI_Model
 
         return $kode_jadi;
     }
+
+    public function groupBy($table)
+    {
+        $this->db->select('SUM(grand_total) as total, MONTH(date) as month, YEAR(date) as year');
+        $this->db->from($table);
+        $this->db->group_by('MONTH(date)');
+        return $this->db->get();
+    }
 }
