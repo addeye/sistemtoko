@@ -28,12 +28,14 @@ class Welcome extends My_controller {
 	public function index()
 	{
 		$total= array();
-		$pagedata['sales'] = $this->model->getTransSalesByLast30Day();
-		foreach($pagedata['sales'] as $key=>$row)
-		{
-			$total[] = $row->grand_total;
-		}
-		$pagedata['total_penjualan'] = array_sum($total);
+//		$pagedata['sales'] = $this->model->getTransSalesByLast30Day();
+//		foreach($pagedata['sales'] as $key=>$row)
+//		{
+//			$total[] = $row->grand_total;
+//		}
+//		$pagedata['total_penjualan'] = array_sum($total);
+		$pagedata['total_penjualan'] = $this->model->getSumByMonth();
+
 
 		$pagedata['invoice'] = $this->model->getInvoiceNotSend();
 		$pagedata['buytotal'] = $this->model->getTransBuyByLast30Day();
@@ -71,8 +73,9 @@ class Welcome extends My_controller {
 
 		$pagedata['gbuy'] = $databuy;
 		$pagedata['gsales'] = $data;
+		$pagedata['big_item'] = $this->model->getItemBigBuying();
 
-//		return var_dump($pagedata['gsales']);
+//		return var_dump($pagedata['big_item']);
 
 
 		$this->template->output($pagedata,'admin/home');

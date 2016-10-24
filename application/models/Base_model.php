@@ -114,4 +114,13 @@ class Base_model extends CI_Model
         $this->db->group_by('MONTH(date)');
         return $this->db->get();
     }
+
+    public function getSumCurrentMonth($table,$month)
+    {
+        $this->db->select('SUM(grand_total) as total');
+        $this->db->from($table);
+        $this->db->where('MONTH(date)',$month);
+        $this->db->where('YEAR(date)',date('Y'));
+        return $this->db->get();
+    }
 }

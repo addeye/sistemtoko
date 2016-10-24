@@ -23,67 +23,67 @@
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-pie-chart"></i>
+                    <i class="fa fa-users"></i>
                     <span>User Manajemen</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?=site_url('user/home')?>"><i class="fa fa-circle-o"></i> User</a></li>
-                    <li><a href="<?=site_url('activity/log')?>"><i class="fa fa-circle-o"></i> Log Activity</a></li>
+                    <li><a href="<?=site_url('user/home')?>"><i class="fa fa-user"></i> User</a></li>
+                    <li><a href="<?=site_url('activity/log')?>"><i class="fa fa-list"></i> Log Activity</a></li>
                 </ul>
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-pie-chart"></i>
+                    <i class="fa fa-database"></i>
                     <span>Master Data</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?=site_url('barang/brg')?>"><i class="fa fa-circle-o"></i> Barang</a></li>
-                    <li><a href="<?=site_url('barang/brg/satuan')?>"><i class="fa fa-circle-o"></i> Satuan</a></li>
-                    <li><a href="<?=site_url('departement/depart')?>"><i class="fa fa-circle-o"></i> Departemen</a></li>
-                    <li><a href="<?=site_url('supplier/supp')?>"><i class="fa fa-circle-o"></i> Supplier</a></li>
-                    <li><a href="<?=site_url('member/mem')?>"><i class="fa fa-circle-o"></i> Member</a></li>
-                    <li><a href="<?=site_url('bank/ban')?>"><i class="fa fa-circle-o"></i> Bank</a></li>
+                    <li><a href="<?=site_url('barang/brg')?>"><i class="fa fa-diamond"></i> Barang</a></li>
+                    <li><a href="<?=site_url('barang/brg/satuan')?>"><i class="fa fa-lemon-o"></i> Satuan</a></li>
+                    <li><a href="<?=site_url('departement/depart')?>"><i class="fa fa-link"></i> Departemen</a></li>
+                    <li><a href="<?=site_url('supplier/supp')?>"><i class="fa fa-user-md"></i> Supplier</a></li>
+                    <li><a href="<?=site_url('member/mem')?>"><i class="fa fa-user-plus"></i> Member</a></li>
+                    <li><a href="<?=site_url('bank/ban')?>"><i class="fa fa-credit-card"></i> Bank</a></li>
                 </ul>
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-pie-chart"></i>
+                    <i class="fa fa-truck"></i>
                     <span>Purchase Order (PO)</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?=site_url('purchase/po/notsent')?>"><i class="fa fa-circle-o"></i> Status PO</a></li>
-                    <li><a href="<?=site_url('purchase/po')?>"><i class="fa fa-circle-o"></i> Transaksi PO</a></li>
+                    <li><a href="<?=site_url('purchase/po/notsent')?>"><i class="fa fa-exclamation"></i> Status PO</a></li>
+                    <li><a href="<?=site_url('purchase/po')?>"><i class="fa fa-list-alt"></i> Transaksi PO</a></li>
                 </ul>
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-pie-chart"></i>
+                    <i class="fa fa-money"></i>
                     <span>Transaksi</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?=site_url('buying/buy/')?>"><i class="fa fa-circle-o"></i> Pembelian Barang</a></li>
-                    <li><a href="<?=site_url('buying/repay')?>"><i class="fa fa-circle-o"></i> Return Pembelian</a></li>
-                    <li><a href="<?=site_url('buying/debt')?>"><i class="fa fa-circle-o"></i> Pelunasan Hutang</a></li>
+                    <li><a href="<?=site_url('buying/buy/')?>"><i class="fa fa-cubes"></i> Pembelian Barang</a></li>
+                    <li><a href="<?=site_url('buying/repay')?>"><i class="fa fa-rotate-right"></i> Return Pembelian</a></li>
+                    <li><a href="<?=site_url('buying/debt')?>"><i class="fa fa-credit-card"></i> Pelunasan Hutang</a></li>
                 </ul>
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-pie-chart"></i>
+                    <i class="fa fa-flag"></i>
                     <span>Stok Opname (SO)</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?=site_url('opname/sop')?>"><i class="fa fa-circle-o"></i> Stok Opname</a></li>
-                    <li><a href="<?=site_url('opname/sop/form')?>"><i class="fa fa-circle-o"></i> Cetak Daftar Opname</a></li>
+                    <li><a href="<?=site_url('opname/sop')?>"><i class="fa fa-cube"></i> Stok Opname</a></li>
+                    <li><a href="<?=site_url('opname/sop/form')?>"><i class="fa fa-list-ol"></i> Cetak Daftar Opname</a></li>
                 </ul>
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-pie-chart"></i>
+                    <i class="fa fa-file-text-o"></i>
                     <span>Laporan Barang</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
@@ -98,7 +98,7 @@
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-pie-chart"></i>
+                    <i class="fa fa-file-text-o"></i>
                     <span>Laporan Umum</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
@@ -111,7 +111,7 @@
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-pie-chart"></i>
+                    <i class="fa fa-file-text-o"></i>
                     <span>Laporan Penjualan</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>

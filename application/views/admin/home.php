@@ -5,7 +5,7 @@
             {
 
                 title:{
-                    text: "Penjualan dan Pembelian 30 Hari Terakhir",
+                    text: "Penjualan dan Pembelian Tiap Bulan",
                     fontSize: 30
                 },
                 animationEnabled: true,
@@ -99,8 +99,8 @@
                     <!-- small box -->
                     <div class="small-box bg-aqua">
                         <div class="inner">
-                            <h3><?=rupiah($total_penjualan)?></h3>
-                            <p>Penjualan 30 Hari Akhir</p>
+                            <h3><?=rupiah($total_penjualan->total)?></h3>
+                            <p>Penjualan Bulan ini</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
@@ -116,7 +116,7 @@
                             <p>PO Belum Dikirim</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
+                            <i class="ion ion-ios-box"></i>
                         </div>
                         <a href="#" class="small-box-footer">Lebih lanjut <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
@@ -129,7 +129,7 @@
                             <p>Pembelian 30 Hari Akhir</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-person-add"></i>
+                            <i class="ion ion-cash"></i>
                         </div>
                         <a href="#" class="small-box-footer">Lebih lanjut <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
@@ -142,7 +142,7 @@
                             <p>Sisa Hutang</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
+                            <i class="ion ion-card"></i>
                         </div>
                         <a href="#" class="small-box-footer">Lebih lanjut <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
@@ -156,7 +156,7 @@
                         <!-- LINE CHART -->
                         <div class="box box-info">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Line Chart</h3>
+                                <h3 class="box-title"><i class="fa fa-bar-chart"></i> Line Chart</h3>
                                 <div class="box-tools pull-right">
                                     <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                     <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -182,31 +182,13 @@
                                         <th>Kode/Nama Barang</th>
                                         <th style="width: 40px">Terjual</th>
                                     </tr>
+                                    <?php $no=1; foreach($big_item as $row){?>
                                     <tr>
-                                        <td>1.</td>
-                                        <td>0000005 / ABC SAUCE TOMAT 135ML</td>
-                                        <td>155</td>
+                                        <td><?=$no++?></td>
+                                        <td><?=$row->items->name?></td>
+                                        <td><?=$row->num?></td>
                                     </tr>
-                                    <tr>
-                                        <td>2.</td>
-                                        <td>2700047/ MILNA BBR BY ORG BERS MRH 120G</td>
-                                        <td>76</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3.</td>
-                                        <td>2600056/ HUKI DOT LATEX M/288 (CI0003)</td>
-                                        <td>55</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4.</td>
-                                        <td>1300130 / MAMY POKO EXTR DRY NEWBORN S52</td>
-                                        <td>49</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5.</td>
-                                        <td>0200015 / CUSSON MNYK RMBT ALVR ZATN 50M</td>
-                                        <td>30</td>
-                                    </tr>
+                                    <?php } ?>
                                 </table>
                             </div><!-- /.box-body -->
                         </div><!-- /.box -->

@@ -12,6 +12,7 @@ class Dashboard_model extends Base_model
     protected $dpo = 'detail_po';
     protected $tbuy = 'trans_buy';
     protected $dbuy = 'detail_buy';
+    protected $mbarang = 'm_barang';
 
     public function __construct()
     {
@@ -19,6 +20,29 @@ class Dashboard_model extends Base_model
     }
 
     public function getTransSalesByLast30Day()
+    {
+        $condition['date <='] = date('Y-m-d',strtotime("+1 days"));
+        $condition['date >='] = date('Y-m-d', strtotime("-30 days"));
+
+        $result = $this->getData($this->tsales,$condition)->result();
+        if($result)
+        {
+            return $result;
+        }
+        return [];
+    }
+
+    public function getSumByMonth()
+    {
+        $result = $this->model->getSumCurrentMonth($this->tsales,date('m'))->row();
+        if($result)
+        {
+            return $result;
+        }
+        return [];
+    }
+
+    public function getCurrentMonth()
     {
         $condition['date <='] = date('Y-m-d',strtotime("+1 days"));
         $condition['date >='] = date('Y-m-d', strtotime("-30 days"));
@@ -115,5 +139,42 @@ class Dashboard_model extends Base_model
             return $result;
         }
         return [];
+    }
+
+    public function getItemBigBuying()
+    {
+        $this->db->select('item,COUNT(item) as num');
+        $this->db->from('detail_sales');
+        $this->db->group_by('item');
+        $this->db->order_by('num','DESC');
+        $result =  $this->db->get();
+        $result = $result->result();
+
+        foreach($result as $key=>$row)
+        {
+            $result[$key]->items = $this->getBarangById($row->item);
+        }
+
+        if($result)
+        {
+            return $result;
+        }
+        return [];
+    }
+
+    public function getBarangById($id)
+    {
+        $condition['id']=$id;
+        $result =  $this->getData($this->mbarang,$condition)->row();
+        if($result)
+        {
+            return $result;
+        }
+        return [];
+    }
+
+    public function getBarangMinStock()
+    {
+        
     }
 }
