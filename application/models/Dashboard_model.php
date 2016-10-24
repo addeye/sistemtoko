@@ -13,6 +13,7 @@ class Dashboard_model extends Base_model
     protected $tbuy = 'trans_buy';
     protected $dbuy = 'detail_buy';
     protected $mbarang = 'm_barang';
+    protected $msupplier = 'm_supplier';
 
     public function __construct()
     {
@@ -173,8 +174,30 @@ class Dashboard_model extends Base_model
         return [];
     }
 
-    public function getBarangMinStock()
+    public function getBarangMinStock($limit=25)
     {
-        
+        $result = $this->getLimit($this->mbarang,$limit,'stock')->result();
+        if($result)
+        {
+            return $result;
+        }
+        return [];
+    }
+
+    public function getCreditDueDate()
+    {
+        $condition['term'] = '2';
+        $condition['paid'] = '0';
+        $condition['due_date >'] = date('Y-m-d');
+        $result = $this->getData($this->tbuy,$condition)->result();
+        foreach($result as $key=>$val)
+        {
+            $result[$key]->supp = $this->getData($this->msupplier,array('id'=>$val->supplier))->row();
+        }
+        if($result)
+        {
+            return $result;
+        }
+        return [];
     }
 }

@@ -52,6 +52,7 @@
 <script src='<?=base_url('assets/adminlte/plugins/fastclick/fastclick.min.js')?>'></script>
 <!-- AdminLTE App -->
 <script src="<?=base_url('assets/adminlte/dist/js/app.min.js')?>" type="text/javascript"></script>
+
 <!-- Bootstrap WYSIHTML5 -->
 <script src="<?=base_url('assets/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')?>" type="text/javascript"></script>
 <script>
@@ -67,6 +68,7 @@
             "image": true, //Button to insert an image. Default true,
             "color": true //Button to change color of font
         });
+
     });
 </script>
 

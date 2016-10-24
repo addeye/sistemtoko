@@ -1,6 +1,11 @@
+<!-- Slimscroll -->
+<script src="<?=base_url('assets/adminlte/plugins/slimScroll/jquery.slimscroll.min.js')?>" type="text/javascript"></script>
 
 <script type="text/javascript">
     window.onload = function () {
+        $('.inner-content-div').slimScroll({
+            height: '200px'
+        });
         var chart = new CanvasJS.Chart("chartContainer",
             {
 
@@ -175,7 +180,7 @@
                             <div class="box-header">
                                 <h3 class="box-title">5 Daftar Barang Terlaris</h3>
                             </div><!-- /.box-header -->
-                            <div class="box-body no-padding">
+                            <div class="box-body no-padding inner-content-div">
                                 <table class="table table-condensed">
                                     <tr>
                                         <th style="width: 10px">#</th>
@@ -198,38 +203,20 @@
                             <div class="box-header">
                                 <h3 class="box-title">Barang re-Order</h3>
                             </div><!-- /.box-header -->
-                            <div class="box-body no-padding">
+                            <div class="box-body no-padding inner-content-div">
                                 <table class="table table-condensed">
                                     <tr>
                                         <th style="width: 10px">#</th>
                                         <th>Kode/Nama Barang</th>
                                         <th style="width: 40px">Stock</th>
                                     </tr>
+                                    <?php $no=1; foreach($minstock as $val) {?>
                                     <tr>
-                                        <td>1.</td>
-                                        <td>4000006/ NICE TISSU WAJAH 2PLY 250'S</td>
-                                        <td>2</td>
+                                        <td><?=$no++?></td>
+                                        <td><?=$val->code?> / <?=$val->name?></td>
+                                        <td><?=$val->stock?></td>
                                     </tr>
-                                    <tr>
-                                        <td>2.</td>
-                                        <td>4000065/ DODO COTTON BD 123 EXT F 100PC</td>
-                                        <td>5</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3.</td>
-                                        <td>4100090/ OREO ICE CREAM BLUBERY 29.4GR</td>
-                                        <td>7</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4.</td>
-                                        <td>5000007/ MOLTO ALLIN1 1XBILAS BR 300ML</td>
-                                        <td>9</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5.</td>
-                                        <td>5000036/ DOWNY PEL/PEW PASION 6X20ML</td>
-                                        <td>10</td>
-                                    </tr>
+                                    <?php } ?>
                                 </table>
                             </div><!-- /.box-body -->
                         </div><!-- /.box -->
@@ -247,18 +234,14 @@
                                         <th>Supplier</th>
                                         <th>Total</th>
                                     </tr>
+                                    <?php $no=1; foreach($credit as $row) {?>
                                     <tr>
-                                        <td>1.</td>
-                                        <td><a href="#">NF00005</a></td>
-                                        <td>Sinar Sosro</td>
-                                        <td>Rp. 3.252.000,00</td>
+                                        <td><?=$no++?></td>
+                                        <td><?=$row->number?></td>
+                                        <td><?=$row->supp->name?></td>
+                                        <td><?=rupiah($row->grand_total)?></td>
                                     </tr>
-                                    <tr>
-                                        <td>2.</td>
-                                        <td><a href="#">NF00006</a></td>
-                                        <td>HJ KUNTI AMANAH</td>
-                                        <td>Rp. 2.200.000,00</td>
-                                    </tr>
+                                    <?php } ?>
                                 </table>
                             </div><!-- /.box-body -->
                         </div><!-- /.box -->

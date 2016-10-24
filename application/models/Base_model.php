@@ -123,4 +123,13 @@ class Base_model extends CI_Model
         $this->db->where('YEAR(date)',date('Y'));
         return $this->db->get();
     }
+
+    public function getLimit($table,$limit,$order='id')
+    {
+        $this->db->select('*');
+        $this->db->from($table);
+        $this->db->limit(0, $limit);
+        $this->db->order_by($table.'.'.$order, 'ASC');
+        return $this->db->get();
+    }
 }

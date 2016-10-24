@@ -74,6 +74,8 @@ class Welcome extends My_controller {
 		$pagedata['gbuy'] = $databuy;
 		$pagedata['gsales'] = $data;
 		$pagedata['big_item'] = $this->model->getItemBigBuying();
+		$pagedata['minstock'] = $this->model->getBarangMinStock();
+		$pagedata['credit'] = $this->model->getCreditDueDate();
 
 //		return var_dump($pagedata['big_item']);
 
