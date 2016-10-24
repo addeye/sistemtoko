@@ -233,6 +233,7 @@
                                         <th>No Faktur</th>
                                         <th>Supplier</th>
                                         <th>Total</th>
+                                        <th>Estimasi</th>
                                     </tr>
                                     <?php $no=1; foreach($credit as $row) {?>
                                     <tr>
@@ -240,6 +241,7 @@
                                         <td><?=$row->number?></td>
                                         <td><?=$row->supp->name?></td>
                                         <td><?=rupiah($row->grand_total)?></td>
+                                        <td><?=IntervalDays(date('Y-m-d'),$row->due_date)?> Hari</td>
                                     </tr>
                                     <?php } ?>
                                 </table>
