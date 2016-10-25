@@ -231,6 +231,18 @@ class Buy extends My_controller
         $this->load->view('cetak',$data);
     }
 
+    public function pdf_po($id)
+    {
+        $this->load->library('pdfgenerator');
+        $data['po'] = $this->model->getId($id);
+
+        $html = $this->load->view('cetakpdf', $data, true);
+
+        $this->pdfgenerator->generate($html,'contoh');
+
+
+    }
+
     public function notsent()
     {
         $data = array(
