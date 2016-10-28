@@ -43,6 +43,7 @@
                             </div>
                             <div class="form-group">
                                 <button type="button" class="btn btn-info search">Cari</button>
+                                <button type="button" onclick="loadOtherPage()" class="btn btn-primary print">Cetak</button>
                             </div>
                         </form>
                         <hr>
@@ -55,6 +56,8 @@
         </div><!-- /.row -->
     </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
+
+<input type="hidden" id="urlcetak" value="<?=site_url('opname/sop/view_print/')?>" >
 
 <div class="modal fade" id="loading" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -90,4 +93,17 @@
                 });
         });
     });
+
+    function loadOtherPage() {
+        var urlcetak = $("#urlcetak").val();
+        var from = $('#from').val();
+        var until = $('#until').val();
+
+        var fullurl = urlcetak+'/'+from+'/'+until;
+
+        $("<iframe>")                             // create a new iframe element
+            .hide()                               // make it invisible
+            .attr("src", fullurl) // point the iframe to the page you want to print
+            .appendTo("body");                    // add iframe to the DOM to cause it to load the page
+    }
 </script>

@@ -151,4 +151,15 @@ class Sop extends My_controller
 
         $this->load->view('view_filter',$pagedata);
     }
+
+    public function view_print($from,$until)
+    {
+        $pagedata['result'] = $this->model->getBarangByFilter($from,$until);
+        $pagedata['from'] = $from;
+        $pagedata['until'] = $until;
+        $pagedata['date'] = date('d/m/Y');
+
+        $this->load->view('view_print',$pagedata);
+    }
+
 }

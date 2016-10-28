@@ -54,7 +54,7 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<input type="hidden" id="iddel">
+
 <input type="hidden" id="url" value="<?=$link_delete?>">
 <input type="hidden" id="urlTable" value="<?=$link_table?>">
 
@@ -63,26 +63,7 @@
     $(function () {
         kolom();
 
-        $('.del').click(function(){
-            $('#mymodal').modal('show');
-            $('#iddel').val(this.id);
-        });
-        $('.act_del').click(function(){
-            var $url = $('#url').val();
-            var id = $('#iddel').val();
-            $.ajax({
-                url : $url+'/'+id,
-                type: 'get',
-                cache: false,
-            })
-                .success(function(){
-                    /*optional stuff to do after success */
-                    $('#mymodal').modal('hide');
-                })
-                .done(function(){
-                    location.reload(true);
-                });
-        });
+
     });
 
     $('#btn-clear').click(function(){

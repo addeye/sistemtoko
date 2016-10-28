@@ -49,24 +49,6 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-4 control-label">Fax</label>
-                                <div class="col-sm-3">
-                                    <input type="text" class="form-control" name="fax" placeholder="Fax Supplier" value="<?=$supplier->fax?>">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-4 control-label">Email</label>
-                                <div class="col-sm-3">
-                                    <input type="text" class="form-control" name="email" placeholder="Email Supplier" value="<?=$supplier->email?>">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-4 control-label">Personal</label>
-                                <div class="col-sm-3">
-                                    <input type="text" class="form-control" name="personal" placeholder="Nama Pemilik/Personal" value="<?=$supplier->personal?>">
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <div class="col-sm-offset-4 col-sm-10">
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                     <a href="<?=$link_back?>" class="btn btn-warning">Kembali</a>

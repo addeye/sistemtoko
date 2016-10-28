@@ -41,6 +41,7 @@
                         <h3 class="box-title"><?=$sub_title?></h3>
                         <div class="pull-right">
                             <button class="btn btn-info" onclick="loadOtherPage()"><i class="glyphicon glyphicon-print"></i> Cetak</button>
+                            <a href="<?=site_url('buying/buy/pdf_po/'.$data->id)?>" class="btn btn-info"><i class="glyphicon glyphicon-download"></i> PDF</a>
                         </div>
                     </div><!-- /.box-header -->
                     <div class="row">

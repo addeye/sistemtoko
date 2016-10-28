@@ -38,6 +38,8 @@
     </div>
 </div>
 
+<input type="hidden" id="iddel">
+
 <script>
     $(function(){
         ajax_paging = function(href)
@@ -58,5 +60,25 @@
                 return false;
 
         };
+        $('.del').click(function(){
+            $('#mymodal').modal('show');
+            $('#iddel').val(this.id);
+        });
+        $('.act_del').click(function(){
+            var $url = $('#url').val();
+            var id = $('#iddel').val();
+            $.ajax({
+                url : $url+'/'+id,
+                type: 'get',
+                cache: false,
+            })
+                .success(function(){
+                    /*optional stuff to do after success */
+                    $('#mymodal').modal('hide');
+                })
+                .done(function(){
+                    location.reload(true);
+                });
+        });
     });
 </script>
